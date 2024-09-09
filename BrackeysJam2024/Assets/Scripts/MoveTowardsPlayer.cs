@@ -27,7 +27,7 @@ public class MoveTowardsPlayer : MonoBehaviour
         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         //trying to find the direction of the player when spawned
-        playerDir = (this.transform.position - playerPos).normalized;
+        playerDir = new Vector3(this.transform.position.x - playerPos.x, 0, this.transform.position.z - playerPos.z).normalized;
     }
 
     // Update is called once per frame
@@ -37,9 +37,17 @@ public class MoveTowardsPlayer : MonoBehaviour
         this.transform.position -= (playerDir * moveSpeed) * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+    }*/
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
         }

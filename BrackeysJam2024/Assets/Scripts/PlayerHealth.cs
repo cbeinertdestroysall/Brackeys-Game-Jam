@@ -31,9 +31,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
+        {
+            TakeDamage(damageN);
+            Debug.Log("Current health " + currentHealth);
+        }
+    }*/
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
         {
             TakeDamage(damageN);
             Debug.Log("Current health " + currentHealth);
