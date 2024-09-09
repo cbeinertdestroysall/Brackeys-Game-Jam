@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f769b1e4cc81c784c873b9fa9ae9a34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowDisplayTime: 2
-  arrowOffset: {x: 0, y: 0, z: 6}
+  arrowLifetime: 2
+  circleRadius: 3
