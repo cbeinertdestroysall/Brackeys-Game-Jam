@@ -25,6 +25,7 @@ public class CoinCollection : MonoBehaviour
     {
         if (other.gameObject.tag == "Coin")
         {
+            Debug.Log("colliding with coin");
             coins += 1;
             Destroy(other.gameObject);
         }

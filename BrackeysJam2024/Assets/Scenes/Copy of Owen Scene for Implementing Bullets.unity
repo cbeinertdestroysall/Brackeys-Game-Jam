@@ -972,6 +972,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   damageN: 15
+  healthBar: {fileID: 0}
+  healthNumber: {fileID: 0}
 --- !u!65 &1345587264
 BoxCollider:
   m_ObjectHideFlags: 0

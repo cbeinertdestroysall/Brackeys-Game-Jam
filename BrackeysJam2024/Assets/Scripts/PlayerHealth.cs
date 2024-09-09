@@ -5,10 +5,10 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public int damageN;
-    int minHealth = 0;
+    public float maxHealth = 100;
+    public float currentHealth;
+    public float damageN;
+    float minHealth = 0;
 
     public HealthBar healthBar;
     public TMP_Text healthNumber;
@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
         healthNumber.text = "Health: " + currentHealth;
     }
 
-    void TakeDamage(int damage)
+    void TakeDamage(float damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
