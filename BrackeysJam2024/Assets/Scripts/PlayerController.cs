@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController Controller;
     [SerializeField] float turnSmoothTime = 0.1f;
     [SerializeField] float speed = 6f;
+    bool dash;
     private float inputHorizontal, inputVertical, turnSmoothVelocity, prevAngle;
     Vector3 Velocity;
     // Start is called before the first frame update
@@ -31,6 +32,11 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
 
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            ShipDash(speed);
+        }
+
         /*Grounded = Physics.CheckSphere(playerGround.position, groundDist, groundMask);
 
         if (Input.GetButtonDown("Jump") && Grounded && !HasKey)
@@ -42,6 +48,14 @@ public class PlayerController : MonoBehaviour
             ToggleKey(false);
             curerntKey.ResetKey();
         }*/
+    }
+
+    void ShipDash(float StartSpeed)
+    {
+        if(!dash)
+        {
+            speed = speed * 2;
+        }
     }    
 
     
