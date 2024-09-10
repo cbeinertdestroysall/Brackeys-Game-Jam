@@ -28,6 +28,8 @@ public class GenericEnemyAi : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public GameObject coin;
+
     private void Awake()
     {
         player = GameObject.Find("Player");
@@ -124,6 +126,7 @@ public class GenericEnemyAi : MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        Instantiate(coin, this.transform.position /*- new Vector3(Random.Range(1, 2), 0, Random.Range(1, 2))*/, Quaternion.identity);
         Destroy(gameObject);
     }
 

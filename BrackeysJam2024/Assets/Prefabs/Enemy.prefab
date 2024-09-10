@@ -170,6 +170,7 @@ MonoBehaviour:
   attackRange: 0.6
   playerInSightRange: 0
   playerInAttackRange: 0
+  coin: {fileID: 5032671546618514136, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
 --- !u!195 &5370948556474044606
 NavMeshAgent:
   m_ObjectHideFlags: 0
