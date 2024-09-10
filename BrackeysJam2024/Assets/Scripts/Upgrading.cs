@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Upgrading : MonoBehaviour
 {
-    public bool upgradeHealth = false;
+    public bool CanUpgradeHP = false;
 
     public HealthBar healthBar;
 
@@ -13,25 +13,31 @@ public class Upgrading : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (upgradeHealth)
+        checkInputs();
+    }
+
+    void checkInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && CanUpgradeHP)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("increase health");
-                this.GetComponent<PlayerHealth>().maxHealth += 10;
-                this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
-                healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
-                this.GetComponent<CoinCollection>().coins -= payment;
-            }
+            Debug.Log("registered upgrade input");
+            UpgradeHP();
         }
     }
 
+    void UpgradeHP()
+    {
+        Debug.Log("increase health");
+        this.GetComponent<PlayerHealth>().maxHealth += 10;
+        this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
+        healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
+        this.GetComponent<CoinCollection>().coins -= payment;
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -39,12 +45,12 @@ public class Upgrading : MonoBehaviour
         {
             if (other.gameObject.GetComponent<PaymentManager>() != null && this.GetComponent<CoinCollection>().coins >= other.gameObject.GetComponent<PaymentManager>().cost)
             {
-                upgradeHealth = true;
+                CanUpgradeHP = true;
                 payment = other.gameObject.GetComponent<PaymentManager>().cost;
             }
             else if (this.GetComponent<CoinCollection>().coins < other.gameObject.GetComponent<PaymentManager>().cost)
             {
-                upgradeHealth = false;
+                CanUpgradeHP = false;
             }
         }
     }
@@ -53,7 +59,7 @@ public class Upgrading : MonoBehaviour
     {
         if (other.gameObject.tag == "HealthUpgrade")
         {
-            upgradeHealth = false;
+            CanUpgradeHP = false;
             payment = 0;
         }
     }
