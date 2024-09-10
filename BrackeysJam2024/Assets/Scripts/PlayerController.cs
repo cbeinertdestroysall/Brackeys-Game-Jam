@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController Controller;
     [SerializeField] float turnSmoothTime = 0.1f;
-    [SerializeField] float speed = 6f;
-    bool dash;
+    [SerializeField] float speed = 6f, dashSpeed;
+    public bool dash, dashCD;
     private float inputHorizontal, inputVertical, turnSmoothVelocity, prevAngle;
+    [SerializeField] DashMeter DM;
+    [SerializeField] public int dashCDTimer,maxDash,maxDashCD,RamDMG;
+    public float dashMeter;
+    [SerializeField] CinemachineVirtualCamera DefaultVcam,DashVcam;
     Vector3 Velocity;
     // Start is called before the first frame update
     void Start()
     {
-        
+        dashMeter = maxDash;
     }
 
     // Update is called once per frame
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        ShipDash();
         DoGroundMovement();
     }
 
@@ -32,10 +38,23 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space) && dashMeter > 0 && !dashCD)
         {
-            ShipDash(speed);
+            dash = true;
+            DefaultVcam.enabled = false;
+            DashVcam.enabled = true;
+            if(!DM.shown)
+            {
+                DM.ShowMeter();
+            }
         }
+        else
+        {
+            dash = false;
+            DashVcam.enabled = false;
+            DefaultVcam.enabled = true;
+        }
+       
 
         /*Grounded = Physics.CheckSphere(playerGround.position, groundDist, groundMask);
 
@@ -50,11 +69,33 @@ public class PlayerController : MonoBehaviour
         }*/
     }
 
-    void ShipDash(float StartSpeed)
+    void ShipDash()
     {
-        if(!dash)
+        if(dashMeter == 0 && !dashCD)
         {
-            speed = speed * 2;
+            dash = false;
+            dashCD = true;
+            dashCDTimer = maxDashCD;
+        }
+        if(dashCD)
+        {
+            dashCDTimer -=1;
+        }
+        if(dashCDTimer == 0 && !dash)
+        {
+            dashCD = false;
+        }
+        if(dash)
+        {
+            dashMeter -= 1;
+        }
+        if(!dash && !dashCD && dashMeter < maxDash)
+        {
+            dashMeter +=1;
+        }
+        if(dashMeter == maxDash && DM.shown && !dash)
+        {
+            DM.Invoke("HideMeter",2f);
         }
     }    
 
@@ -82,7 +123,14 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                Velocity = moveDir.normalized * speed * Time.fixedDeltaTime;
+                if(dash)
+                {
+                    Velocity = moveDir.normalized * (speed * dashSpeed) * Time.fixedDeltaTime;
+                }
+                else
+                {
+                    Velocity = moveDir.normalized * speed * Time.fixedDeltaTime;
+                }
                 prevAngle = targetAngle;
             }
            

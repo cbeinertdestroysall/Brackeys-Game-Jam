@@ -10,13 +10,14 @@ public class PlayerHealth : MonoBehaviour
     public float damageN;
     float minHealth = 0;
 
+    [SerializeField] PlayerController PC;
+
     public HealthBar healthBar;
     public TMP_Text healthNumber;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
         currentHealth = maxHealth;
     }
 
@@ -26,6 +27,11 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             TakeDamage(damageN);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth);
         }
 
         healthNumber.text = "Health: " + currentHealth;
@@ -54,7 +60,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if(other.gameObject.tag == "EnemyBullet")
+        {
+            TakeDamage(damageN);
+        }
+        else if (other.gameObject.tag == "Enemy" && !PC.dash)
         {
             TakeDamage(damageN);
             Debug.Log("Current health " + currentHealth);

@@ -140,7 +140,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Size: {x: 1.2275381, y: 2, z: 1.2385437}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &472792798732446190
 MonoBehaviour:
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5370948556474044606}
-  player: {fileID: 0}
+  playerPos: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1073741824

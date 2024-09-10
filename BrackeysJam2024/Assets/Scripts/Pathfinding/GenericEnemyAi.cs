@@ -6,7 +6,9 @@ public class GenericEnemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
 
-    public Transform player;
+    GameObject player;
+    PlayerController PC;
+    public Transform playerPos;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -28,7 +30,9 @@ public class GenericEnemyAi : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player");
+        playerPos = player.transform;
+        PC = player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -41,6 +45,14 @@ public class GenericEnemyAi : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         //if (playerInAttackRange && playerInSightRange) AttackPlayer();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player" && PC.dash)
+        {
+            TakeDamage(PC.RamDMG);
+        }
     }
 
     private void Patroling()
@@ -70,7 +82,7 @@ public class GenericEnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        agent.SetDestination(playerPos.position);
     }
 
     /*private void AttackPlayer()
@@ -78,7 +90,7 @@ public class GenericEnemyAi : MonoBehaviour
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        transform.LookAt(playerPos);
 
         if (!alreadyAttacked)
         {
@@ -101,7 +113,14 @@ public class GenericEnemyAi : MonoBehaviour
     {
         health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0)
+        {
+            gameObject.GetComponent<SpawnBullet>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.GetComponent<MeshRenderer>().enabled =false;
+            Invoke(nameof(DestroyEnemy), 0.5f);
+        }
     }
     private void DestroyEnemy()
     {
