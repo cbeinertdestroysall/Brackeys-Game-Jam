@@ -466,7 +466,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5032671546618514084, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5032671546618514084, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1640,8 +1640,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b380b363786b7a4ca5c1f818af1e343, type: 2}
+  m_sharedMaterial: {fileID: 2095504861403452208, guid: 4b380b363786b7a4ca5c1f818af1e343, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
