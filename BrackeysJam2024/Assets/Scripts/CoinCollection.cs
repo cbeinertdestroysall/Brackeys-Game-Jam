@@ -9,6 +9,8 @@ public class CoinCollection : MonoBehaviour
 
     public TMP_Text coinNumber;
 
+    public SoundManager soundManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class CoinCollection : MonoBehaviour
             Debug.Log("colliding with coin");
             coins += 1;
             Destroy(other.gameObject);
+            soundManager.PlayCoinSound();
         }
     }
 }

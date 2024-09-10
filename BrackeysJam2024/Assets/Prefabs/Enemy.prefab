@@ -171,6 +171,7 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   coin: {fileID: 5032671546618514136, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
+  soundManager: {fileID: 5916792104801050973, guid: 34514e6567efc8b4ea861a2c22398ac8, type: 3}
 --- !u!195 &5370948556474044606
 NavMeshAgent:
   m_ObjectHideFlags: 0

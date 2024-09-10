@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     public HealthBar healthBar;
     public TMP_Text healthNumber;
+    public SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
@@ -60,14 +61,20 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "EnemyBullet")
+        if (other.gameObject.tag == "EnemyBullet")
         {
             TakeDamage(damageN);
+            soundManager.PlayHurt();
         }
         else if (other.gameObject.tag == "Enemy" && !PC.dash)
         {
             TakeDamage(damageN);
             Debug.Log("Current health " + currentHealth);
+            soundManager.PlayHurt();
+        }
+        else if (other.gameObject.tag == "Enemy" && PC.dash)
+        {
+            soundManager.PlayEnemyKill();
         }
     }
 }

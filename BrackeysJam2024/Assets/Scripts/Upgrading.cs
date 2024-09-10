@@ -10,6 +10,8 @@ public class Upgrading : MonoBehaviour
 
     int payment;
 
+    public SoundManager soundManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,7 @@ public class Upgrading : MonoBehaviour
         this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
         healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
         this.GetComponent<CoinCollection>().coins -= payment;
+        soundManager.PlayCoinSound();
     }
 
     private void OnTriggerStay(Collider other)

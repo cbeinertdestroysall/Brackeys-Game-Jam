@@ -54,6 +54,7 @@ public class GenericEnemyAi : MonoBehaviour
         if(other.tag == "Player" && PC.dash)
         {
             TakeDamage(PC.RamDMG);
+            
         }
     }
 
@@ -121,6 +122,7 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled =false;
+           
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
     }
