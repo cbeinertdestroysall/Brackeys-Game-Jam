@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject spawnArrowPrefab;
+
+    [SerializeField] Transform enemyParent;
     public List<Transform> spawnerLocations;        //List of all the spawner locations
     public float spawnInterval = 5f;                //Time between enemy spawning
     public int totalEnemiesToSpawn = 20;            //Max number of enemies spawned/round
@@ -44,13 +46,13 @@ public class EnemySpawner : MonoBehaviour
 
             int enemiesToSpawnNow = Random.Range(minEnemiesToSpawn, maxEnemiesToSpawn + 1);                     //Determines the random number of enemies to spawn at once in a single spawner
             List<Vector3> spawnedPositions = new List<Vector3>();                           //Tracks the spawn positions
-            /*for (int i = 0; i < enemiesToSpawnNow; i++)
+            for (int i = 0; i < enemiesToSpawnNow; i++)
             {
                 Vector3 randomPosition = GetRandomPositionWithinSpawner(currentSpawnerOfEnemy.position, spawnRadius);
 
                 if(!Physics.CheckSphere(randomPosition, 0.5f, overlapLayerMask))                                //Ensures no overlap when spawning
                 {
-                    Instantiate(enemyPrefab, currentSpawnerOfEnemy.position, Quaternion.identity);
+                    Instantiate(enemyPrefab, currentSpawnerOfEnemy.position, Quaternion.identity,enemyParent);
                     enemiesSpawned++;
 
                     if (enemiesSpawned >= totalEnemiesToSpawn) break;                       //Stops when max enemy limit is reached
@@ -61,8 +63,8 @@ public class EnemySpawner : MonoBehaviour
                     i--;
                 }
             }
-            */
-            for (int i = 0; i < enemiesToSpawnNow; i++)
+            
+            /*for (int i = 0; i < enemiesToSpawnNow; i++)
             {
                 Vector3 spawnPosition;
                 bool validPosition = false;
@@ -96,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
                 enemiesSpawned++;
 
                 if (enemiesSpawned >= totalEnemiesToSpawn) break;                           //End of the round, stop spawning enemies
-            }
+            }*/
 
             yield return new WaitForSeconds(spawnInterval - arrowDisplayTime);                              //Another interval so enemies don't spawn rapidly
         }
