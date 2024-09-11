@@ -12,6 +12,16 @@ public class Upgrading : MonoBehaviour
 
     public SoundManager soundManager;
 
+    public float healthUpgradeAmount;
+
+    GameObject healthUpgrade;
+
+    /*IEnumerator IsNotUpgrading()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isUpgrading = false;
+    }*/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,17 +45,24 @@ public class Upgrading : MonoBehaviour
     void UpgradeHP()
     {
         Debug.Log("increase health");
-        this.GetComponent<PlayerHealth>().maxHealth += 10;
+        this.GetComponent<PlayerHealth>().maxHealth += healthUpgradeAmount;
         this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
         healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
         this.GetComponent<CoinCollection>().coins -= payment;
         soundManager.PlayUpgrade();
+
+        if (healthUpgrade.GetComponent<PaymentManager>() != null)
+        {
+            healthUpgrade.GetComponent<PaymentManager>().cost += 1;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "HealthUpgrade")
         {
+            healthUpgrade = other.gameObject;
+
             if (other.gameObject.GetComponent<PaymentManager>() != null && this.GetComponent<CoinCollection>().coins >= other.gameObject.GetComponent<PaymentManager>().cost)
             {
                 CanUpgradeHP = true;
@@ -55,6 +72,13 @@ public class Upgrading : MonoBehaviour
             {
                 CanUpgradeHP = false;
             }
+
+            /*if (isUpgrading && other.gameObject.GetComponent<PaymentManager>() != null)
+            {
+                other.gameObject.GetComponent<PaymentManager>().cost += 1;
+                StartCoroutine(IsNotUpgrading());
+                
+            }*/
         }
     }
 
@@ -62,6 +86,7 @@ public class Upgrading : MonoBehaviour
     {
         if (other.gameObject.tag == "HealthUpgrade")
         {
+            healthUpgrade = null;
             CanUpgradeHP = false;
             payment = 0;
         }

@@ -1835,6 +1835,7 @@ MonoBehaviour:
   CanUpgradeHP: 0
   healthBar: {fileID: 33381767}
   soundManager: {fileID: 2120286179}
+  healthUpgradeAmount: 0
 --- !u!65 &1259475692
 BoxCollider:
   m_ObjectHideFlags: 0
