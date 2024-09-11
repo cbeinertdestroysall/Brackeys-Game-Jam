@@ -39,7 +39,7 @@ public class Upgrading : MonoBehaviour
         this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
         healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
         this.GetComponent<CoinCollection>().coins -= payment;
-        soundManager.PlayCoinSound();
+        soundManager.PlayUpgrade();
     }
 
     private void OnTriggerStay(Collider other)
