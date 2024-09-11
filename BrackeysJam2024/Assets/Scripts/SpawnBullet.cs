@@ -8,6 +8,8 @@ public class SpawnBullet : MonoBehaviour
     public float time;
     public float startTime;
 
+    public float timeToLaunch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class SpawnBullet : MonoBehaviour
 
     public void SpawningBullet()
     {
-        if (time <= 0.01)
+        if (time <= timeToLaunch)
         {
             Instantiate(bullet, this.transform.position, Quaternion.identity);
             Debug.Log("Bullet has spawned");

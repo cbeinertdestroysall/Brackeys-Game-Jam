@@ -117,6 +117,7 @@ MonoBehaviour:
   bullet: {fileID: 1940221329532671498, guid: 99edae087cf9910488eedb960cd2e574, type: 3}
   time: 2
   startTime: 2
+  timeToLaunch: 0.05
 --- !u!136 &3759337385258616532
 CapsuleCollider:
   m_ObjectHideFlags: 0
