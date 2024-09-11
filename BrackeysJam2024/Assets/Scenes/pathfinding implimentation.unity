@@ -2544,6 +2544,7 @@ MonoBehaviour:
   spawnOrigin: {fileID: 577897186}
   transformMax: -13
   transformMin: 13
+  coinCount: 0
   coinMax: 20
 --- !u!1 &1567334190
 GameObject:
