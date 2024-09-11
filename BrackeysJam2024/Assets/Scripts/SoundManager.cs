@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource coinCollect;
     public AudioSource enemyKill;
     public AudioSource hurt;
+    public AudioSource upgrade;
 
     // Start is called before the first frame update
     void Start()
@@ -34,5 +35,10 @@ public class SoundManager : MonoBehaviour
     public void PlayHurt()
     {
         hurt.Play();
+    }
+
+    public void PlayUpgrade()
+    {
+        upgrade.Play();
     }
 }
