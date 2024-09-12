@@ -10,6 +10,10 @@ public class SpawnBullet : MonoBehaviour
 
     public float timeToLaunch;
 
+    public bool canLaunch;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +36,18 @@ public class SpawnBullet : MonoBehaviour
     {
         if (time <= timeToLaunch)
         {
+            canLaunch = true;
+        }
+        else 
+        {
+            canLaunch = false;
+        }
+
+        if (canLaunch)
+        {
             Instantiate(bullet, this.transform.position, Quaternion.identity);
             Debug.Log("Bullet has spawned");
+            canLaunch = false;
         }
     }
 }
