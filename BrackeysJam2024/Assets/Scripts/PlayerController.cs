@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera DefaultVcam,DashVcam;
     Vector3 Velocity;
     public ParticleSystem motor;
+    public ParticleSystem motorDash;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +56,7 @@ public class PlayerController : MonoBehaviour
             DefaultVcam.enabled = false;
             DashVcam.enabled = true;
 
-            motor.GetComponent<ParticleSystem>().startSize = 0.5f;
-            motor.Play();
+            motorDash.Play();
 
             if (!DM.shown)
             {
@@ -69,8 +69,7 @@ public class PlayerController : MonoBehaviour
             DashVcam.enabled = false;
             DefaultVcam.enabled = true;
 
-            motor.GetComponent<ParticleSystem>().startSize = 0.2f;
-            motor.Stop();
+            motorDash.Stop();
         }
        
 
