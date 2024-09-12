@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
         
+        
         if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
         {
             motor.Play();
@@ -53,7 +54,11 @@ public class PlayerController : MonoBehaviour
             dash = true;
             DefaultVcam.enabled = false;
             DashVcam.enabled = true;
-            if(!DM.shown)
+
+            motor.GetComponent<ParticleSystem>().startSize = 0.5f;
+            motor.Play();
+
+            if (!DM.shown)
             {
                 DM.ShowMeter();
             }
@@ -63,6 +68,9 @@ public class PlayerController : MonoBehaviour
             dash = false;
             DashVcam.enabled = false;
             DefaultVcam.enabled = true;
+
+            motor.GetComponent<ParticleSystem>().startSize = 0.2f;
+            motor.Stop();
         }
        
 
