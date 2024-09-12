@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float dashMeter;
     [SerializeField] CinemachineVirtualCamera DefaultVcam,DashVcam;
     Vector3 Velocity;
+    public ParticleSystem motor;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,15 @@ public class PlayerController : MonoBehaviour
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
+        
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        {
+            motor.Play();
+        }
+        else
+        {
+            motor.Stop();
+        }
 
         if(Input.GetKey(KeyCode.Space) && dashMeter > 0 && !dashCD)
         {
