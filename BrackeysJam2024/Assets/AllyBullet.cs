@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveTowardsPlayer : MonoBehaviour
+public class AllyBullet : MonoBehaviour
 {
-    Vector3 playerPos;
-    Vector3 playerDir;
+    Vector3 targetPos;
+    Vector3 targetDir;
 
     public float timeToDestroy;
 
@@ -24,17 +24,21 @@ public class MoveTowardsPlayer : MonoBehaviour
         StartCoroutine(Destroy());
 
         //when the bullets spawn, they will rotate towards and follow the position of the mouse while travelling at bulletSpeed
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        if(GetComponentInParent<TurretScript>().target != null)
+        {
+            targetPos = GetComponentInParent<TurretScript>().target.transform.position;
+        }
+       
 
         //trying to find the direction of the player when spawned
-        playerDir = new Vector3(this.transform.position.x - playerPos.x, 0, this.transform.position.z - playerPos.z).normalized;
+        targetDir = new Vector3(this.transform.position.x - targetPos.x, 0, this.transform.position.z - targetPos.z).normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
         //moving in the direction of the player (not directly towards player)
-        this.transform.position -= (playerDir * moveSpeed) * Time.deltaTime;
+        this.transform.position -= (targetDir * moveSpeed) * Time.deltaTime;
     }
 
     /*private void OnCollisionEnter(Collision collision)
@@ -47,7 +51,12 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || other.tag == "Walls")
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.GetComponent<GenericEnemyAi>().TakeDamage(1);
+            Destroy(this.gameObject);
+        }
+        else if(other.gameObject.layer == 31)
         {
             Destroy(this.gameObject);
         }

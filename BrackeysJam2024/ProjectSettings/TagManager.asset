@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - HealthUpgrade
   - EnemyBullet
+  - FriendlyBullet
   layers:
   - Default
   - TransparentFX
