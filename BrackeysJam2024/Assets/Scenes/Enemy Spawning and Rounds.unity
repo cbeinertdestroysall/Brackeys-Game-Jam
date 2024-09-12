@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 3
+  canShow: 0
 --- !u!65 &18922093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -488,6 +489,7 @@ MonoBehaviour:
   overlapLayerMask:
     serializedVersion: 2
     m_Bits: 72
+  maxEnemySpawnPosAttempts: 20
 --- !u!4 &113387606
 Transform:
   m_ObjectHideFlags: 0
@@ -1841,8 +1843,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanUpgradeHP: 0
+  CanUpgradeSpeed: 0
   healthBar: {fileID: 33381767}
+  PC: {fileID: 0}
   soundManager: {fileID: 2120286179}
+  healthUpgradeAmount: 0
+  speedUpgradeAmount: 0
 --- !u!65 &1259475692
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2362,7 +2368,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1649807087
 GameObject:

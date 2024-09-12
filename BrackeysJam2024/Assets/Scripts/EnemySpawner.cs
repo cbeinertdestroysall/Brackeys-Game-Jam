@@ -17,9 +17,11 @@ public class EnemySpawner : MonoBehaviour
     public float minDistanceBetweenEnemies = 3f;    //Minimum space between enemies when spawning
     public float spawnRadius = 1f;                  //Barrier around each spawner
     public LayerMask overlapLayerMask;              //Checks for overlapping enemies
+    public int maxEnemySpawnPosAttempts;            //Limits how many potential locations for spawning enemies
 
     private int enemiesSpawned = 0;                 //Enemies spawned in real time
     private Transform currentSpawnerOfEnemy;        //Tracks what spawner will spawn the next enemy
+    private bool spawningInProgress;                //Tracks whether or not the coroutine for spawning is running
 
     void Start()
     {
@@ -28,10 +30,21 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        if (spawningInProgress) yield break;            //Checks to see if the coroutine is running multiple times 
+        spawningInProgress = true;
+
         while (enemiesSpawned < totalEnemiesToSpawn)
         {
             currentSpawnerOfEnemy = spawnerLocations[Random.Range(0, spawnerLocations.Count)];              //Selecting the spawner for the next enemy
             
+            if (currentSpawnerOfEnemy == null)
+            {
+                Debug.LogError("There is no spawner location. Check the list and fix it");
+                yield break;
+            }
+
+            Debug.Log($"Current spawner: {currentSpawnerOfEnemy.name}");
+
             if(spawnArrowPrefab != null )
             {
                 GameObject arrow = Instantiate(spawnArrowPrefab, transform.position, Quaternion.identity);      //Show arrow pointing to the current enemy spawner
@@ -46,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
 
             int enemiesToSpawnNow = Random.Range(minEnemiesToSpawn, maxEnemiesToSpawn + 1);                     //Determines the random number of enemies to spawn at once in a single spawner
             List<Vector3> spawnedPositions = new List<Vector3>();                           //Tracks the spawn positions
-            for (int i = 0; i < enemiesToSpawnNow; i++)
+            /*for (int i = 0; i < enemiesToSpawnNow; i++)
             {
                 Vector3 randomPosition = GetRandomPositionWithinSpawner(currentSpawnerOfEnemy.position, spawnRadius);
 
@@ -63,11 +76,13 @@ public class EnemySpawner : MonoBehaviour
                     i--;
                 }
             }
+            */
             
-            /*for (int i = 0; i < enemiesToSpawnNow; i++)
+            for (int i = 0; i < enemiesToSpawnNow; i++)
             {
                 Vector3 spawnPosition;
                 bool validPosition = false;
+                int attemptCount = 0;
 
                 do
                 {
@@ -91,17 +106,30 @@ public class EnemySpawner : MonoBehaviour
                     {
                         validPosition = false;
                     }
+
+                    attemptCount++;
+
+                    if (attemptCount >= maxEnemySpawnPosAttempts)               //Exits the loop if the max attempts has been reached
+                    {
+                        Debug.LogWarning($"Could not find a valid spawn position after {maxEnemySpawnPosAttempts}");
+                        break;
+                    }
                 } while (!validPosition);
 
-                Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);               //Spawn the enemy in the valid position 
-                spawnedPositions.Add(spawnPosition);                                        //Add the valid spawn position to the list
-                enemiesSpawned++;
+                if (validPosition)
+                {
+                    Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);               //Spawn the enemy in the valid position 
+                    spawnedPositions.Add(spawnPosition);                                        //Add the valid spawn position to the list
+                    enemiesSpawned++;
+                }
 
                 if (enemiesSpawned >= totalEnemiesToSpawn) break;                           //End of the round, stop spawning enemies
-            }*/
+            }
 
             yield return new WaitForSeconds(spawnInterval - arrowDisplayTime);                              //Another interval so enemies don't spawn rapidly
         }
+
+        spawningInProgress = false;
     }
 
     Vector3 GetRandomPositionWithinSpawner (Vector3 center, float rad)
