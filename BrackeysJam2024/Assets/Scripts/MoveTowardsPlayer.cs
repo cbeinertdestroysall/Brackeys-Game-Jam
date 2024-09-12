@@ -47,7 +47,7 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || other.tag == "Walls")
+        if (other.gameObject.tag == "Player" || other.gameObject.layer == 31)
         {
             Destroy(this.gameObject);
         }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 6f, dashSpeed;
     public bool dash, dashCD;
     private float inputHorizontal, inputVertical, turnSmoothVelocity, prevAngle;
-    [SerializeField] DashMeter DM;
+    [SerializeField] public DashMeter DM;
     [SerializeField] public int dashCDTimer,maxDash,maxDashCD,RamDMG;
     public float dashMeter;
     [SerializeField] CinemachineVirtualCamera DefaultVcam,DashVcam;

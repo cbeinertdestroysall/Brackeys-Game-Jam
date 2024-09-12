@@ -10,6 +10,7 @@ TagManager:
   - HealthUpgrade
   - EnemyBullet
   - FriendlyBullet
+  - SpeedUpgrade
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Unity.UI;
 public class Upgrading : MonoBehaviour
 {
     public bool CanUpgradeHP = false;
@@ -10,6 +10,8 @@ public class Upgrading : MonoBehaviour
     public HealthBar healthBar;
 
     int payment;
+
+    [SerializeField] PlayerController PC;
 
     public SoundManager soundManager;
 
@@ -71,6 +73,7 @@ public class Upgrading : MonoBehaviour
         this.GetComponent<PlayerController>().maxDash += speedUpgradeAmount;
         //this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
         //healthBar.SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
+        PC.DM.meter.maxValue = PC.maxDash;
         this.GetComponent<CoinCollection>().coins -= payment;
         soundManager.PlayUpgrade();
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DashMeter : MonoBehaviour
 {
-    [SerializeField] Slider meter;
+    [SerializeField] public Slider meter;
     Vector3 IndicatorPos;
     public Vector3 WorldSpaceTarget;
     public bool shown = false;
