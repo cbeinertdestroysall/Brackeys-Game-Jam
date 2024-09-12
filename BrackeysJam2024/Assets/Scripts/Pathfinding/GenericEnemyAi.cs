@@ -30,6 +30,8 @@ public class GenericEnemyAi : MonoBehaviour
 
     public GameObject coin;
 
+    public ParticleSystem junk;
+
     private void Awake()
     {
         player = GameObject.Find("Player");
@@ -122,6 +124,8 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled =false;
+
+            junk.Play();
            
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
