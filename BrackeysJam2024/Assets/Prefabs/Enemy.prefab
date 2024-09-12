@@ -118,6 +118,7 @@ MonoBehaviour:
   time: 2
   startTime: 2
   timeToLaunch: 0.05
+  canLaunch: 0
 --- !u!136 &3759337385258616532
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5370948556474044606}
   playerPos: {fileID: 0}
+  baseTarget: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1073741824
@@ -169,10 +171,12 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 2
   timeBetweenAttacks: 10
-  sightRange: 25
+  sightRange: 20
   attackRange: 0.6
   playerInSightRange: 0
   playerInAttackRange: 0
+  baseList: []
+  BaseParent: {fileID: 0}
   coin: {fileID: 5032671546618514136, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
 --- !u!195 &5370948556474044606
 NavMeshAgent:
@@ -183,7 +187,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8001982049322572013}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

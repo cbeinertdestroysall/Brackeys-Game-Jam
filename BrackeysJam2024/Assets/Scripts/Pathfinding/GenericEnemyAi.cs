@@ -1,4 +1,5 @@
-
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,7 @@ public class GenericEnemyAi : MonoBehaviour
 
     GameObject player;
     PlayerController PC;
-    public Transform playerPos;
+    public Transform playerPos, baseTarget;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -27,11 +28,14 @@ public class GenericEnemyAi : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    public List<Transform> baseList = new List<Transform>();
+    [SerializeField] GameObject BaseParent;
 
     public GameObject coin;
 
     private void Awake()
     {
+        BaseParent = GameObject.Find("BaseParent");
         player = GameObject.Find("Player");
         playerPos = player.transform;
         PC = player.GetComponent<PlayerController>();
@@ -44,21 +48,39 @@ public class GenericEnemyAi : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
+        if (!playerInSightRange && !playerInAttackRange) TargetBase();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         //if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && PC.dash)
+        if (other.tag == "Player" && PC.dash)
         {
             TakeDamage(PC.RamDMG);
-            
+
         }
     }
 
-    private void Patroling()
+    Transform SeekTarget(List<Transform> baseList)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (Transform potentialTarget in baseList)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+        return bestTarget;
+    }
+
+    /*private void Patroling()
     {
         if (!walkPointSet) SearchWalkPoint();
 
@@ -81,11 +103,44 @@ public class GenericEnemyAi : MonoBehaviour
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
-    }
+    }*/
 
     private void ChasePlayer()
     {
+        if (baseTarget)
+        {
+            baseTarget = null;
+        }
         agent.SetDestination(playerPos.position);
+    }
+
+    void TargetBase()
+    {
+        if (baseTarget == null)
+        {
+            GetNewBaseTarget();
+        }
+        else if (baseTarget)
+        {
+            if (baseTarget.parent != BaseParent)
+            {
+                GetNewBaseTarget();
+            }
+            agent.SetDestination(baseTarget.position);
+        }
+    }
+
+    void GetNewBaseTarget()
+    {
+        baseList.Clear();
+        foreach (Transform t in BaseParent.GetComponentsInChildren<Transform>())
+        {
+            if (t.name == "Lighthouse" || t.name == "Turret")
+            {
+                baseList.Add(t.transform);
+            }
+        }
+        baseTarget = SeekTarget(baseList);
     }
 
     /*private void AttackPlayer()
@@ -121,8 +176,8 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<SpawnBullet>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
-            gameObject.GetComponent<MeshRenderer>().enabled =false;
-           
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
     }

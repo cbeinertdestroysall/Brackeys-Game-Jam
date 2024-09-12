@@ -73,7 +73,7 @@ public class TurretScript : MonoBehaviour
         {   
             RotateHead();
             
-            if(fireInterval == 0)
+            if(fireInterval <= 0)
             {
                 Instantiate(bullet, FirePoint.transform.position, Quaternion.identity, gameObject.transform);
                 fireInterval = maxFireDelay;
