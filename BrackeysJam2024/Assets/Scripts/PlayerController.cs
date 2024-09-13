@@ -18,10 +18,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform TPtarget;
     public ParticleSystem motor;
     public ParticleSystem motorDash;
+    public GameObject healthBar;
+    public bool resetFunctionCalled = false;
+    public GameObject boat;
+
     // Start is called before the first frame update
     void Start()
     {
         dashMeter = maxDash;
+        resetFunctionCalled = false;
     }
 
     // Update is called once per frame
@@ -30,6 +35,13 @@ public class PlayerController : MonoBehaviour
         if(!teleporting)
         {
             DoInput();
+        }
+
+        if (this.GetComponent<PlayerHealth>().currentHealth <= 0 && !resetFunctionCalled)
+        {
+            resetFunctionCalled = true;
+            teleporting = true;
+            TeleportPlayer();
         }
     }
 
@@ -104,12 +116,20 @@ public class PlayerController : MonoBehaviour
         Controller.transform.position = TPtarget.position;
         DefaultVcam.enabled = false;
         DashVcam.enabled = false;
-        Invoke("ReEnable",0.1f);
+        this.GetComponent<BoxCollider>().enabled = false;
+        boat.SetActive(false);
+        Invoke("ReEnable", 1f);
     }
     public void ReEnable()
     {
         teleporting = false;
         DefaultVcam.enabled =true;
+        resetFunctionCalled = false;
+        this.GetComponent<BoxCollider>().enabled = true;
+        boat.SetActive(true);
+        this.GetComponent<PlayerHealth>().currentHealth = this.GetComponent<PlayerHealth>().maxHealth;
+        healthBar.GetComponent<HealthBar>().SetMaxHealth(this.GetComponent<PlayerHealth>().maxHealth);
+        
     }
 
     void ShipDash()
