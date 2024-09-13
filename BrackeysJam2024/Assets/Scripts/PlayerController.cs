@@ -159,8 +159,8 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(targetAngle +45);
             //Debug.Log(targetAngle -45);
 
-            if (targetAngle == prevAngle || targetAngle == prevAngle + 45 || targetAngle == prevAngle - 45 || targetAngle == -prevAngle + 45 || targetAngle == -prevAngle - 45)
-            {
+            //if (targetAngle == prevAngle || targetAngle == prevAngle + 45 || targetAngle == prevAngle - 45 || targetAngle == -prevAngle + 45 || targetAngle == -prevAngle - 45)
+            //{
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -174,8 +174,8 @@ public class PlayerController : MonoBehaviour
                 {
                     Velocity = moveDir.normalized * speed * Time.fixedDeltaTime;
                 }
-                prevAngle = targetAngle;
-            }
+                //prevAngle = targetAngle;
+            //}
 
             //MovementAnims.SetBool("Sprint",true);
         }
