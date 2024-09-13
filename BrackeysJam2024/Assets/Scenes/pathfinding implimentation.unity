@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8001982049322572013, guid: dbe796eb4d7576f4396ca06f0d0b2a76, type: 3}
   spawnArrowPrefab: {fileID: 2581562771842381492, guid: e2ede445f9146e74dac8981d8ce072f2, type: 3}
+  enemyParent: {fileID: 0}
   spawnerLocations:
   - {fileID: 877956812}
   - {fileID: 591630976}
@@ -481,6 +482,16 @@ MonoBehaviour:
   spawnInterval: 1
   totalEnemiesToSpawn: 1000
   arrowDisplayTime: 2
+  minEnemiesToSpawn: 2
+  maxEnemiesToSpawn: 5
+  minDistanceBetweenEnemies: 3
+  spawnRadius: 1
+  overlapLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxEnemySpawnPosAttempts: 0
+  calmBeforeStorm: 10
+  intervalTimerText: {fileID: 0}
 --- !u!4 &113387606
 Transform:
   m_ObjectHideFlags: 0
@@ -1160,6 +1171,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &572750377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f4f8341e43b284287e269bafa25a16, type: 3}
+  m_PrefabInstance: {fileID: 565914120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &577897185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,6 +1887,7 @@ GameObject:
   - component: {fileID: 1259475692}
   - component: {fileID: 1259475691}
   - component: {fileID: 1259475690}
+  - component: {fileID: 1259475699}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1908,6 +1925,7 @@ MonoBehaviour:
   CanUpgradeHP: 0
   CanUpgradeSpeed: 0
   healthBar: {fileID: 33381767}
+  PC: {fileID: 0}
   soundManager: {fileID: 2120286179}
   healthUpgradeAmount: 10
   speedUpgradeAmount: 10
@@ -2053,6 +2071,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1259475699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259475689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedfee1cfd2ad4146a04ecf639932430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boat: {fileID: 572750377}
+  ResetTime: 2
+  functionCalled: 0
 --- !u!1 &1295319344
 GameObject:
   m_ObjectHideFlags: 0
