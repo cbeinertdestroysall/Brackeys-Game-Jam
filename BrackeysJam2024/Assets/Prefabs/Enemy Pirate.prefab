@@ -116,10 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1940221329532671498, guid: 99edae087cf9910488eedb960cd2e574, type: 3}
-  time: 2
-  startTime: 2
-  timeToLaunch: 0.05
-  canLaunch: 0
+  shootInterval: 150
+  shootTime: 0
 --- !u!136 &3759337385258616532
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -173,12 +171,15 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 2
   timeBetweenAttacks: 10
+  showsHP: 0
   sightRange: 20
   attackRange: 0.6
   playerInSightRange: 0
   playerInAttackRange: 0
   baseList: []
   BaseParent: {fileID: 0}
+  enemyHealthBarPFB: {fileID: 0}
+  HPoffsetY: 0
   coin: {fileID: 5032671546618514136, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
 --- !u!195 &5370948556474044606
 NavMeshAgent:
