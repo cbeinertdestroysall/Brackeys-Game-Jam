@@ -49,8 +49,6 @@ public class ShowCost : MonoBehaviour
         IndicatorPos = Cam.WorldToScreenPoint(WorldSpaceTarget);
         transform.position = IndicatorPos + new Vector3(OffsetX, OffsetY, 0);
         costText.text = "Cost: " + upgradeBox.GetComponent<PaymentManager>().cost;
-
-        
     }
 
 }
