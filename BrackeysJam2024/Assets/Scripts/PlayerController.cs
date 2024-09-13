@@ -8,13 +8,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController Controller;
     [SerializeField] float turnSmoothTime = 0.1f;
     [SerializeField] float speed = 6f, dashSpeed;
-    public bool dash, dashCD;
+    public bool dash, dashCD, teleporting;
     private float inputHorizontal, inputVertical, turnSmoothVelocity, prevAngle;
     [SerializeField] public DashMeter DM;
-    [SerializeField] public int dashCDTimer,maxDash,maxDashCD,RamDMG;
+    [SerializeField] public int dashCDTimer, maxDash, maxDashCD, RamDMG;
     public float dashMeter;
-    [SerializeField] CinemachineVirtualCamera DefaultVcam,DashVcam;
+    [SerializeField] CinemachineVirtualCamera DefaultVcam, DashVcam;
     Vector3 Velocity;
+    [SerializeField] Transform TPtarget;
+    public ParticleSystem motor;
+    public ParticleSystem motorDash;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +27,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       DoInput(); 
+        if(!teleporting)
+        {
+            DoInput();
+        }
     }
 
     void FixedUpdate()
     {
-        ShipDash();
-        DoGroundMovement();
+        if (!teleporting)
+        {
+            ShipDash();
+            DoGroundMovement();
+        }
     }
 
     void DoInput()
@@ -38,12 +47,30 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKey(KeyCode.Space) && dashMeter > 0 && !dashCD)
+
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        {
+            motor.Play();
+        }
+        else
+        {
+            motor.Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T)) //to teleport
+        {
+            TeleportPlayer();
+        }
+
+        if (Input.GetKey(KeyCode.Space) && dashMeter > 0 && !dashCD)
         {
             dash = true;
             DefaultVcam.enabled = false;
             DashVcam.enabled = true;
-            if(!DM.shown)
+
+            motorDash.Play();
+
+            if (!DM.shown)
             {
                 DM.ShowMeter();
             }
@@ -53,8 +80,11 @@ public class PlayerController : MonoBehaviour
             dash = false;
             DashVcam.enabled = false;
             DefaultVcam.enabled = true;
+
+            motorDash.Stop();
         }
-       
+
+
 
         /*Grounded = Physics.CheckSphere(playerGround.position, groundDist, groundMask);
 
@@ -68,42 +98,55 @@ public class PlayerController : MonoBehaviour
             curerntKey.ResetKey();
         }*/
     }
+    void TeleportPlayer()
+    {
+        teleporting = true;
+        Controller.transform.position = TPtarget.position;
+        DefaultVcam.enabled = false;
+        DashVcam.enabled = false;
+        Invoke("ReEnable",0.1f);
+    }
+    public void ReEnable()
+    {
+        teleporting = false;
+        DefaultVcam.enabled =true;
+    }
 
     void ShipDash()
     {
-        if(dashMeter == 0 && !dashCD)
+        if (dashMeter == 0 && !dashCD)
         {
             dash = false;
             dashCD = true;
             dashCDTimer = maxDashCD;
         }
-        if(dashCD)
+        if (dashCD)
         {
-            dashCDTimer -=1;
+            dashCDTimer -= 1;
         }
-        if(dashCDTimer == 0 && !dash)
+        if (dashCDTimer == 0 && !dash)
         {
             dashCD = false;
         }
-        if(dash)
+        if (dash)
         {
             dashMeter -= 1;
         }
-        if(!dash && !dashCD && dashMeter < maxDash)
+        if (!dash && !dashCD && dashMeter < maxDash)
         {
-            dashMeter +=1;
+            dashMeter += 1;
         }
-        if(dashMeter == maxDash && DM.shown && !dash)
+        if (dashMeter == maxDash && DM.shown && !dash)
         {
-            DM.Invoke("HideMeter",2f);
+            DM.Invoke("HideMeter", 2f);
         }
-    }    
+    }
 
-    
+
     void DoGroundMovement()
     {
         Vector3 direction = new Vector3(inputHorizontal, 0f, inputVertical).normalized;
-        
+
 
         Velocity *= 0.99f;
 
@@ -116,14 +159,14 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(targetAngle +45);
             //Debug.Log(targetAngle -45);
 
-            if(targetAngle == prevAngle ||targetAngle == prevAngle + 45 || targetAngle == prevAngle - 45 || targetAngle == -prevAngle + 45 || targetAngle == -prevAngle - 45)
+            if (targetAngle == prevAngle || targetAngle == prevAngle + 45 || targetAngle == prevAngle - 45 || targetAngle == -prevAngle + 45 || targetAngle == -prevAngle - 45)
             {
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                if(dash)
+                if (dash)
                 {
                     Velocity = moveDir.normalized * (speed * dashSpeed) * Time.fixedDeltaTime;
                 }
@@ -133,7 +176,7 @@ public class PlayerController : MonoBehaviour
                 }
                 prevAngle = targetAngle;
             }
-           
+
             //MovementAnims.SetBool("Sprint",true);
         }
         else

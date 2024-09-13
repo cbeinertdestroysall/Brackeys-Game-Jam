@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TS: {fileID: 3134546885212717747}
+  DMGfromBullet: 1
+  DMGfromCollision: 20
 --- !u!54 &2087570807905188126
 Rigidbody:
   m_ObjectHideFlags: 0

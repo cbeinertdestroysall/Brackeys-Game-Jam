@@ -5,19 +5,20 @@ using UnityEngine;
 public class DamageBase : MonoBehaviour
 {
     [SerializeField] TurretScript TS;
+    [SerializeField] int DMGfromBullet,DMGfromCollision;
 
     void OnTriggerEnter(Collider other)
     {
-        if(TS.alive)
+        if (TS.alive)
         {
-            if(other.tag == "Enemy")
-        {
-            TS.TakeDamage(25);
-        }
-        else if(other.tag == "EnemyBullet")
-        {
-            TS.TakeDamage(1);
-        }
+            if (other.tag == "Enemy")
+            {
+                TS.TakeDamage(DMGfromCollision);
+            }
+            else if (other.tag == "EnemyBullet")
+            {
+                TS.TakeDamage(DMGfromBullet);
+            }
         }
     }
 }
