@@ -613,9 +613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdd3733004b4f14c8ea5f225eba3c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8001982049322572013, guid: dbe796eb4d7576f4396ca06f0d0b2a76, type: 3}
+  enemyPrefab: {fileID: 8001982049322572013, guid: 33556745dc9271d4b95c8fd65ae18c32, type: 3}
   spawnArrowPrefab: {fileID: 2581562771842381492, guid: e2ede445f9146e74dac8981d8ce072f2, type: 3}
-  enemyParent: {fileID: 0}
+  enemyParent: {fileID: 1392031628}
   spawnerLocations:
   - {fileID: 877956812}
   - {fileID: 591630976}
@@ -7367,7 +7367,7 @@ MonoBehaviour:
   CanUpgradeHP: 0
   CanUpgradeSpeed: 0
   healthBar: {fileID: 33381767}
-  PC: {fileID: 0}
+  PC: {fileID: 1259475694}
   soundManager: {fileID: 2120286179}
   healthUpgradeAmount: 15
   speedUpgradeAmount: 15
@@ -7421,6 +7421,7 @@ MonoBehaviour:
   dashSpeed: 2
   dash: 0
   dashCD: 0
+  teleporting: 0
   DM: {fileID: 1996783046}
   dashCDTimer: 0
   maxDash: 100

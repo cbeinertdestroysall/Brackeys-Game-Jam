@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class GenericEnemyAi : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GenericEnemyAi : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float health;
-
+    [SerializeField] int coinsToDrop;
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -176,14 +177,17 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<SpawnBullet>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            transform.GetChild(0).GameObject().SetActive(false);
 
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
     }
     private void DestroyEnemy()
     {
-        Instantiate(coin, this.transform.position /*- new Vector3(Random.Range(1, 2), 0, Random.Range(1, 2))*/, Quaternion.identity);
+        for(int i = 0; i < coinsToDrop;i++)
+        {
+            Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2),transform.position.y,transform.position.z +Random.Range(-2, 2)), Quaternion.identity);   
+        }
         Destroy(gameObject);
     }
 
