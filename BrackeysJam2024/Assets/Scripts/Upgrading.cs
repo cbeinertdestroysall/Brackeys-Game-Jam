@@ -18,6 +18,8 @@ public class Upgrading : MonoBehaviour
     public float healthUpgradeAmount;
     public int speedUpgradeAmount;
 
+    public int costIncreaseAmount;
+
     GameObject healthUpgrade;
     GameObject speedUpgrade;
 
@@ -63,7 +65,7 @@ public class Upgrading : MonoBehaviour
 
         if (healthUpgrade.GetComponent<PaymentManager>() != null)
         {
-            healthUpgrade.GetComponent<PaymentManager>().cost += 1;
+            healthUpgrade.GetComponent<PaymentManager>().cost += costIncreaseAmount;
         }
     }
 
@@ -79,7 +81,7 @@ public class Upgrading : MonoBehaviour
 
         if (speedUpgrade.GetComponent<PaymentManager>() != null)
         {
-            speedUpgrade.GetComponent<PaymentManager>().cost += 1;
+            speedUpgrade.GetComponent<PaymentManager>().cost += costIncreaseAmount;
         }
     }
 

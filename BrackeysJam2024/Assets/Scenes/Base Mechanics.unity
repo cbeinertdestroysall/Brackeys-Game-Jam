@@ -572,8 +572,8 @@ MonoBehaviour:
   spawnInterval: 2
   totalEnemiesToSpawn: 1000
   arrowDisplayTime: 2
-  minEnemiesToSpawn: 5
-  maxEnemiesToSpawn: 7
+  minEnemiesToSpawn: 2
+  maxEnemiesToSpawn: 3
   minDistanceBetweenEnemies: 1
   spawnRadius: 3
   overlapLayerMask:
@@ -7262,6 +7262,7 @@ MonoBehaviour:
   soundManager: {fileID: 2120286179}
   healthUpgradeAmount: 15
   speedUpgradeAmount: 15
+  costIncreaseAmount: 5
 --- !u!65 &1259475692
 BoxCollider:
   m_ObjectHideFlags: 0
