@@ -14,7 +14,7 @@ public class GenericEnemyAi : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public float health;
+    public int health;
     [SerializeField] int coinsToDrop;
     //Patroling
     public Vector3 walkPoint;
@@ -25,15 +25,17 @@ public class GenericEnemyAi : MonoBehaviour
     public float timeBetweenAttacks;
     //bool alreadyAttacked;
     //public GameObject projectile;
-
+    public bool showsHP;
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     public List<Transform> baseList = new List<Transform>();
-    [SerializeField] GameObject BaseParent;
-
+    [SerializeField] GameObject BaseParent,enemyHealthBarPFB;
+    [SerializeField] float HPoffsetY;
+    HealthBarWS HPBar;
+    Canvas mainCanvas;
+    GameObject eHealthBar;
     public GameObject coin;
-    public ParticleSystem junk;
 
     private void Awake()
     {
@@ -42,10 +44,23 @@ public class GenericEnemyAi : MonoBehaviour
         playerPos = player.transform;
         PC = player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
+
+        if(showsHP)
+        {
+            mainCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            eHealthBar = Instantiate(enemyHealthBarPFB,mainCanvas.transform);
+            HPBar = eHealthBar.GetComponent<HealthBarWS>();
+            HPBar.meter.maxValue = health;
+            HPBar.ShowBar();
+        }
     }
 
     private void Update()
     {
+        if(showsHP)
+        {
+            HPBar.WorldSpaceTarget = new Vector3(transform.position.x,transform.position.y + HPoffsetY,transform.position.z);
+        }
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -172,6 +187,10 @@ public class GenericEnemyAi : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if(showsHP)
+        {
+            HPBar.SetBarValue(health);
+        }
 
         if (health <= 0)
         {
@@ -179,16 +198,12 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             transform.GetChild(0).GameObject().SetActive(false);
-<<<<<<< Updated upstream
-=======
-            junk.Play();
             if(showsHP)
             {
                 Destroy(eHealthBar);
             }
->>>>>>> Stashed changes
 
-            Invoke(nameof(DestroyEnemy), 1.5f);
+            Invoke(nameof(DestroyEnemy), 0.5f);
         }
     }
     private void DestroyEnemy()

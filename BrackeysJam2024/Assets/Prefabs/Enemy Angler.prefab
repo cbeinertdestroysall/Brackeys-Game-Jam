@@ -5003,12 +5003,15 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 2
   timeBetweenAttacks: 10
+  showsHP: 1
   sightRange: 20
   attackRange: 0.6
   playerInSightRange: 0
   playerInAttackRange: 0
   baseList: []
   BaseParent: {fileID: 0}
+  enemyHealthBarPFB: {fileID: 8181866447177176141, guid: 0d44d236c156261469e7cb608d0297fd, type: 3}
+  HPoffsetY: -2
   coin: {fileID: 5032671546618514136, guid: ee965871b7be98243afc99ab1871cf7b, type: 3}
   junk: {fileID: 979354354535882537}
 --- !u!195 &5370948556474044606

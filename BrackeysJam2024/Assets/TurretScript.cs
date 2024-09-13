@@ -12,7 +12,7 @@ public class TurretScript : MonoBehaviour
     public List<Transform> activeEnemies = new List<Transform>();
     Canvas mainCanvas;
 
-    [SerializeField] public int maxHP,curHP;
+    [SerializeField] public int maxHP,curHP,turretRange;
 
     [SerializeField] float HPoffsetY;
 
@@ -69,7 +69,7 @@ public class TurretScript : MonoBehaviour
             }
             target = SeekTarget(activeEnemies);
         }
-        else if (target != null )
+        else if (target != null)
         {   
             RotateHead();
             
@@ -93,7 +93,7 @@ public class TurretScript : MonoBehaviour
         {
             Vector3 directionToTarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            if (dSqrToTarget < closestDistanceSqr && dSqrToTarget < turretRange)
             {
                 closestDistanceSqr = dSqrToTarget;
                 bestTarget = potentialTarget;

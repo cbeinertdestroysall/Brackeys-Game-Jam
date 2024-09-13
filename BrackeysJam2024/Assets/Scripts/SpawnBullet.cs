@@ -5,14 +5,8 @@ using UnityEngine;
 public class SpawnBullet : MonoBehaviour
 {
     public GameObject bullet;
-    public float time;
-    public float startTime;
-
-    public float timeToLaunch;
-
-    public bool canLaunch;
-
     
+    [SerializeField] int shootInterval,shootTime;
 
     // Start is called before the first frame update
     void Start()
@@ -21,33 +15,25 @@ public class SpawnBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        time -= 1 * Time.deltaTime;
-        if (time < 0)
+        if(shootTime <= 0)
         {
-            time = startTime;
+            SpawningBullet();
+            shootTime = shootInterval;
         }
-
-        SpawningBullet();
+        else
+        {
+            shootTime -=1;
+        }
     }
 
     public void SpawningBullet()
     {
-        if (time <= timeToLaunch)
-        {
-            canLaunch = true;
-        }
-        else 
-        {
-            canLaunch = false;
-        }
 
-        if (canLaunch)
-        {
-            Instantiate(bullet, this.transform.position, Quaternion.identity);
-            Debug.Log("Bullet has spawned");
-            canLaunch = false;
-        }
+        Instantiate(bullet, this.transform.position, Quaternion.identity);
+        Debug.Log("Bullet has spawned");
+
+
     }
 }
