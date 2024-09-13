@@ -30,12 +30,14 @@ public class GenericEnemyAi : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     public List<Transform> baseList = new List<Transform>();
-    [SerializeField] GameObject BaseParent,enemyHealthBarPFB;
+    [SerializeField] GameObject BaseParent, enemyHealthBarPFB;
     [SerializeField] float HPoffsetY;
     HealthBarWS HPBar;
     Canvas mainCanvas;
     GameObject eHealthBar;
     public GameObject coin;
+    public ParticleSystem junk;
+
 
     private void Awake()
     {
@@ -45,10 +47,10 @@ public class GenericEnemyAi : MonoBehaviour
         PC = player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
 
-        if(showsHP)
+        if (showsHP)
         {
             mainCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-            eHealthBar = Instantiate(enemyHealthBarPFB,mainCanvas.transform);
+            eHealthBar = Instantiate(enemyHealthBarPFB, mainCanvas.transform);
             HPBar = eHealthBar.GetComponent<HealthBarWS>();
             HPBar.meter.maxValue = health;
             HPBar.ShowBar();
@@ -57,9 +59,9 @@ public class GenericEnemyAi : MonoBehaviour
 
     private void Update()
     {
-        if(showsHP)
+        if (showsHP)
         {
-            HPBar.WorldSpaceTarget = new Vector3(transform.position.x,transform.position.y + HPoffsetY,transform.position.z);
+            HPBar.WorldSpaceTarget = new Vector3(transform.position.x, transform.position.y + HPoffsetY, transform.position.z);
         }
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -187,7 +189,7 @@ public class GenericEnemyAi : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if(showsHP)
+        if (showsHP)
         {
             HPBar.SetBarValue(health);
         }
@@ -198,19 +200,20 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             transform.GetChild(0).GameObject().SetActive(false);
-            if(showsHP)
+            junk.Play();
+            if (showsHP)
             {
                 Destroy(eHealthBar);
             }
 
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            Invoke(nameof(DestroyEnemy), 1.5f);
         }
     }
     private void DestroyEnemy()
     {
-        for(int i = 0; i < coinsToDrop;i++)
+        for (int i = 0; i < coinsToDrop; i++)
         {
-            Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2),transform.position.y,transform.position.z +Random.Range(-2, 2)), Quaternion.identity);   
+            Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2), transform.position.y, transform.position.z + Random.Range(-2, 2)), Quaternion.identity);
         }
         Destroy(gameObject);
     }

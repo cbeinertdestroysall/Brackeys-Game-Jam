@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
             //MovementAnims.SetBool("Sprint",false);
             //MovementAnims.SetBool("Idle",true);
         }
+        Velocity.y = 0;
         Controller.Move(Velocity);
     }
 }

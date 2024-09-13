@@ -38,11 +38,7 @@ public class TurretScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(alive)
-        {
-            AttackSeq();
-        }
-        else if(!alive && area.playerInArea && PC.GetComponent<CoinCollection>().coins >= 10 && Input.GetKeyDown(KeyCode.E))
+        if(!alive && area.playerInArea && PC.GetComponent<CoinCollection>().coins >= 10 && Input.GetKeyDown(KeyCode.E))
         {
             curHP = maxHP;
             area.GetComponent<MeshRenderer>().enabled = false;
@@ -54,20 +50,39 @@ public class TurretScript : MonoBehaviour
             this.gameObject.transform.SetParent(BaseParent.transform);
             alive = true;
         }
+        if(target != null && target.GetComponent<GenericEnemyAi>().health <= 0)
+        {
+            GetNewTaret();
+        }
     }
+    void FixedUpdate()
+    {
+        if(alive)
+        {
+            AttackSeq();
+        }
+    }
+    void GetNewTaret()
+    {
+        activeEnemies.Clear();
+            foreach (Transform t in EnemiesParent.GetComponentsInChildren<Transform>())
+            {
+                if(t.name == "Enemy Grouper(Clone)" || t.name == "Enemy Pirate(Clone)" || t.name == "Enemy Angler(Clone)" || t.name == "Enemy(Clone)")
+                {
+                    if(t.GetComponent<GenericEnemyAi>().health > 0)
+                    {
+                        activeEnemies.Add(t.transform);
+                    }
+                }
+            }
+            target = SeekTarget(activeEnemies);
+    }
+
     void AttackSeq()
     {
         if (target == null && EnemiesParent.transform.childCount > 0)
         {
-            activeEnemies.Clear();
-            foreach (Transform t in EnemiesParent.GetComponentsInChildren<Transform>())
-            {
-                if(t.name != "EnemyParent")
-                {
-                    activeEnemies.Add(t.transform);
-                }
-            }
-            target = SeekTarget(activeEnemies);
+            GetNewTaret();
         }
         else if (target != null)
         {   
