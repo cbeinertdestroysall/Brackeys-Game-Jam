@@ -33,6 +33,7 @@ public class GenericEnemyAi : MonoBehaviour
     [SerializeField] GameObject BaseParent;
 
     public GameObject coin;
+    public ParticleSystem junk;
 
     private void Awake()
     {
@@ -178,8 +179,16 @@ public class GenericEnemyAi : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             transform.GetChild(0).GameObject().SetActive(false);
+<<<<<<< Updated upstream
+=======
+            junk.Play();
+            if(showsHP)
+            {
+                Destroy(eHealthBar);
+            }
+>>>>>>> Stashed changes
 
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            Invoke(nameof(DestroyEnemy), 1.5f);
         }
     }
     private void DestroyEnemy()
