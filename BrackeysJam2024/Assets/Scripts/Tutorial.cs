@@ -112,7 +112,7 @@ public class Tutorial : MonoBehaviour
             StartCoroutine(ChangeTutorialToDash());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone)
+        if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone && !upgradeTutorial1Done)
         {
             StartCoroutine(ChangeTutorialToUpgrade1());
         }
