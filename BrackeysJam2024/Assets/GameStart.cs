@@ -13,6 +13,7 @@ public class GameStart : MonoBehaviour
     [SerializeField] Animation LightHouseDeath;
 
     public PlayerController PC;
+    [SerializeField] Tutorial TS;
     Quaternion AimStart;
     bool startedCam,endCam;
     // Start is called before the first frame update
@@ -36,6 +37,11 @@ public class GameStart : MonoBehaviour
         defaultCam.enabled = true;
         startedCam=true;
         Invoke("enablePC",2f);
+        Invoke("ShowTutorial",2f);
+    }
+    public void ShowTutorial()
+    {
+        TS.startTurtorial = true;
     }
     public void EndGame()
     {
