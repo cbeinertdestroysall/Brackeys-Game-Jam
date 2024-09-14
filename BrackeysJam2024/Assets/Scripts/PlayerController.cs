@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public DashMeter DM;
     [SerializeField] public int dashCDTimer, maxDash, maxDashCD, RamDMG;
     public float dashMeter;
-    [SerializeField] CinemachineVirtualCamera DefaultVcam, DashVcam;
+    [SerializeField] public CinemachineVirtualCamera DefaultVcam, DashVcam;
     Vector3 Velocity;
     [SerializeField] Transform TPtarget;
     public ParticleSystem motor;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public GameObject healthBar;
     public bool resetFunctionCalled = false;
     public GameObject boat;
+    public BaseScript LH;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
             DoInput();
         }
 
-        if (this.GetComponent<PlayerHealth>().currentHealth <= 0 && !resetFunctionCalled)
+        if (this.GetComponent<PlayerHealth>().currentHealth <= 0 && !resetFunctionCalled && !LH.gameOver)
         {
             resetFunctionCalled = true;
             teleporting = true;

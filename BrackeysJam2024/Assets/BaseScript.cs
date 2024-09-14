@@ -10,6 +10,9 @@ public class BaseScript : MonoBehaviour
     HealthBar HPbar;
     TMP_Text HealthText;
     [SerializeField] public int curHp, MaxHp,collisionDamage;
+    [SerializeField] GameStart GM;
+    public bool gameOver = false;
+    [SerializeField] AudioSource SFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,16 +29,25 @@ public class BaseScript : MonoBehaviour
     {
         
     }
+    public void DeathAudio()
+    {
+        SFX.Play();
+    }
     
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy")
         {
-            if(curHp - collisionDamage <= 0)
+            if(curHp - collisionDamage <= 0 && !gameOver)
             {
-                //game ends, scene resets
+                gameOver = true;
+                GM.EndGame();
+                Invoke("DeathAudio",2f);
+                curHp = 0;
+                HealthText.text = "The Lighthouse Is Lost!";
+                HPbar.SetHealth(curHp);
             }
-            else
+            else if(!gameOver)
             {
                 other.GetComponent<GenericEnemyAi>().TakeDamage(10);
                 curHp -= collisionDamage;

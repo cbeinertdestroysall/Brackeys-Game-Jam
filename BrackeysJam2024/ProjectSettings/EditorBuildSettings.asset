@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/pathfinding implimentation.unity
-    guid: d4e2c85f6112a5049a13aece99674747
+    path: Assets/Scenes/Base Mechanics.unity
+    guid: a08969d27ad40074396e73bb75b1f522
   m_configObjects: {}
