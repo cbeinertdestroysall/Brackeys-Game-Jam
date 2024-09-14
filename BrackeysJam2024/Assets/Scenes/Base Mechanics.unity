@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &18922092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +447,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &52350744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850795925402214523, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+  m_PrefabInstance: {fileID: 1549448876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &113387604
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +521,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &157742071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850795925402214523, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+  m_PrefabInstance: {fileID: 1963837469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &274077308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7512,6 +7522,8 @@ MonoBehaviour:
   player: {fileID: 1259475689}
   turretActivation1: {fileID: 1963837470}
   turretActivation2: {fileID: 1549448878}
+  turret1: {fileID: 157742071}
+  turret2: {fileID: 52350744}
   WorldSpaceTarget: {x: 0, y: 0, z: 0}
   Cam: {fileID: 569793687}
   OffsetY: 15
@@ -7853,7 +7865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1123090450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7973,7 +7985,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1131428666
 GameObject:
@@ -8970,7 +8982,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1464918734
 GameObject:
@@ -9173,7 +9185,7 @@ Transform:
   m_Children:
   - {fileID: 275966071}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1530667562
 GameObject:
@@ -9327,6 +9339,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 6850795925402214523, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -9343,6 +9359,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
   m_PrefabInstance: {fileID: 1549448876}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1564023594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1564023595}
+  m_Layer: 0
+  m_Name: CoinParent
+  m_TagString: CoinParent
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1564023595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564023594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.8379364, y: 11.386896, z: -25.04951}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1567334190
 GameObject:
   m_ObjectHideFlags: 0
@@ -15099,6 +15146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 6850795925402214523, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -15265,7 +15316,7 @@ Transform:
   - {fileID: 1774158930}
   - {fileID: 1549448877}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450653716176133
 Transform:
@@ -15455,10 +15506,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3016204763744172248, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -7176295609111946279, guid: 3c57887b934e06742966a2ffaeaccee6, type: 2}
     - target: {fileID: 3165454168937339072, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
       propertyPath: m_Name
       value: SoundManager

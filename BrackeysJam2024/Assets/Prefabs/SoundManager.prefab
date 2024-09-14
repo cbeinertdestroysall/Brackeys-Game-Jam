@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinCollect: {fileID: 3165454168937339076}
-  enemyKill: {fileID: 3165454168937339079}
+  enemyKill: {fileID: 0}
   hurt: {fileID: 3165454168937339078}
   upgrade: {fileID: 1097963668987654336}
 --- !u!82 &3165454168937339075
@@ -543,7 +543,7 @@ AudioSource:
   m_GameObject: {fileID: 3165454168937339072}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7176295609111946279, guid: 3c57887b934e06742966a2ffaeaccee6, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8305c705ed41b104a8069d3d1116fede, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1

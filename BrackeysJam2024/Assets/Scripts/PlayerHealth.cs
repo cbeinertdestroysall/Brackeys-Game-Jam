@@ -72,9 +72,9 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Current health " + currentHealth);
             soundManager.PlayHurt();
         }
-        else if (other.gameObject.tag == "Enemy" && PC.dash)
+        /*else if (other.gameObject.tag == "Enemy" && PC.dash)
         {
             soundManager.PlayEnemyKill();
-        }
+        }*/
     }
 }
