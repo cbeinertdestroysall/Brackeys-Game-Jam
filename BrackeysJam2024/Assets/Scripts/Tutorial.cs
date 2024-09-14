@@ -83,6 +83,12 @@ public class Tutorial : MonoBehaviour
         turretTutorialDone = true;
     }
 
+    IEnumerator ChangeTutorialToGoal()
+    {
+        yield return new WaitForSeconds(1f);
+        tutorialText.GetComponent<TMP_Text>().text = "DEFEND THE LIGHTHOUSE AT ALL COSTS";
+        combatTutorialDone = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +118,7 @@ public class Tutorial : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
         {
-            StartCoroutine(EndTutorial());
+            StartCoroutine(ChangeTutorialToGoal());
         }
 
         if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
@@ -140,6 +146,11 @@ public class Tutorial : MonoBehaviour
                 StartCoroutine(ChangeTutorialToCombat());
                 enemySpawner.SetActive(true);
             }
+        }
+
+        if (combatTutorialDone)
+        {
+            StartCoroutine(EndTutorial());
         }
 
         
