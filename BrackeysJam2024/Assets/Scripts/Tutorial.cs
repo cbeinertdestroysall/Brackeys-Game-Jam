@@ -133,18 +133,18 @@ public class Tutorial : MonoBehaviour
                 coinSpawner.GetComponent<SpawnCoins>().Spawn();
             }
 
-            if (player.GetComponent<Upgrading>().CanUpgradeSpeed == true && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && !upgradeTutorial2Done)
+            if (player.GetComponent<Upgrading>().CanUpgradeSpeed == true && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && (!upgradeTutorial2Done || !turretTutorialDone))
             {
                 StartCoroutine(ChangeTutorialToTurret());
             }
-            else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+            else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && (!upgradeTutorial2Done || !turretTutorialDone))
             {
                 coinSpawner.GetComponent<SpawnCoins>().Spawn();
             }
 
             if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
             {
-                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone && player.GetComponent<CoinCollection>().coins >= 10)
+                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
                 {
                     StartCoroutine(ChangeTutorialToCombat());
                     enemySpawner.SetActive(true);
