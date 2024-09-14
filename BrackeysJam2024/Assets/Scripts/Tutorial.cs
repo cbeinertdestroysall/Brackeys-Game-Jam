@@ -22,6 +22,8 @@ public class Tutorial : MonoBehaviour
     [SerializeField] int OffsetY;
     [SerializeField] int OffsetX;
 
+    public bool startTurtorial = false;
+
     public bool movementTutorialDone = false;
     public bool dashTutorialDone = false;
     public bool upgradeTutorial1Done = false;
@@ -37,20 +39,20 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator ChangeTutorialToDash()
     {
-        
-            yield return new WaitForSeconds(5f);
-            tutorialText.GetComponent<TMP_Text>().text = "Press Space to Dash";
-            movementTutorialDone = true;
-        
+
+        yield return new WaitForSeconds(5f);
+        tutorialText.GetComponent<TMP_Text>().text = "Press Space to Dash";
+        movementTutorialDone = true;
+
     }
 
     IEnumerator ChangeTutorialToUpgrade1()
     {
-        
-            yield return new WaitForSeconds(3f);
-            tutorialText.GetComponent<TMP_Text>().text = "Go to yellow upgrade box and press 'e' to increase health";
-            dashTutorialDone = true;
-        
+
+        yield return new WaitForSeconds(3f);
+        tutorialText.GetComponent<TMP_Text>().text = "Go to yellow upgrade box and press 'e' to increase health";
+        dashTutorialDone = true;
+
     }
 
     IEnumerator ChangeTutorialToUpgrade2()
@@ -62,12 +64,12 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator ChangeTutorialToTurret()
     {
-        
-            yield return new WaitForSeconds(1f);
-            tutorialText.GetComponent<TMP_Text>().text = "Go to turret and press 'e' to activate it";
-            upgradeTutorial2Done = true;
-        
-        
+
+        yield return new WaitForSeconds(1f);
+        tutorialText.GetComponent<TMP_Text>().text = "Go to turret and press 'e' to activate it";
+        upgradeTutorial2Done = true;
+
+
     }
 
     IEnumerator EndTutorial()
@@ -100,59 +102,60 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
-        WorldSpaceTarget = player.transform.position;
-
-        IndicatorPos = Cam.WorldToScreenPoint(WorldSpaceTarget) + new Vector3(OffsetX, OffsetY, 0); 
-
-        tutorialText.transform.position = IndicatorPos;
-
-        if (Input.GetKeyDown(KeyCode.W) && !movementTutorialDone)
+        if (startTurtorial)
         {
-            StartCoroutine(ChangeTutorialToDash());
-        }
+            WorldSpaceTarget = player.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone && !upgradeTutorial1Done)
-        {
-            StartCoroutine(ChangeTutorialToUpgrade1());
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
-        {
-            StartCoroutine(ChangeTutorialToGoal());
-        }
+            IndicatorPos = Cam.WorldToScreenPoint(WorldSpaceTarget) + new Vector3(OffsetX, OffsetY, 0);
 
-        if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
-        {
-            StartCoroutine(ChangeTutorialToUpgrade2());
-        }
-        else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
-        {
-            coinSpawner.GetComponent<SpawnCoins>().Spawn();
-        }
+            tutorialText.transform.position = IndicatorPos;
 
-        if (player.GetComponent<Upgrading>().CanUpgradeSpeed == true && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && !upgradeTutorial2Done)
-        {
-            StartCoroutine(ChangeTutorialToTurret());
-        }
-        else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
-        {
-            coinSpawner.GetComponent<SpawnCoins>().Spawn();
-        }
-
-        if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
-        {
-            if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
+            if (Input.GetKeyDown(KeyCode.W) && !movementTutorialDone)
             {
-                StartCoroutine(ChangeTutorialToCombat());
-                enemySpawner.SetActive(true);
+                StartCoroutine(ChangeTutorialToDash());
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone && !upgradeTutorial1Done)
+            {
+                StartCoroutine(ChangeTutorialToUpgrade1());
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
+            {
+                StartCoroutine(ChangeTutorialToGoal());
+            }
+
+            if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+            {
+                StartCoroutine(ChangeTutorialToUpgrade2());
+            }
+            else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+            {
+                coinSpawner.GetComponent<SpawnCoins>().Spawn();
+            }
+
+            if (player.GetComponent<Upgrading>().CanUpgradeSpeed == true && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && !upgradeTutorial2Done)
+            {
+                StartCoroutine(ChangeTutorialToTurret());
+            }
+            else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+            {
+                coinSpawner.GetComponent<SpawnCoins>().Spawn();
+            }
+
+            if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
+                {
+                    StartCoroutine(ChangeTutorialToCombat());
+                    enemySpawner.SetActive(true);
+                }
+            }
+
+            if (combatTutorialDone)
+            {
+                StartCoroutine(EndTutorial());
             }
         }
 
-        if (combatTutorialDone)
-        {
-            StartCoroutine(EndTutorial());
-        }
-
-        
     }
 }
