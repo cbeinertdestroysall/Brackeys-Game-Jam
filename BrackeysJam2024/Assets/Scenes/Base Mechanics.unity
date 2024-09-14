@@ -15506,10 +15506,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3016204763744172248, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -7176295609111946279, guid: 3c57887b934e06742966a2ffaeaccee6, type: 2}
     - target: {fileID: 3165454168937339072, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
       propertyPath: m_Name
       value: SoundManager

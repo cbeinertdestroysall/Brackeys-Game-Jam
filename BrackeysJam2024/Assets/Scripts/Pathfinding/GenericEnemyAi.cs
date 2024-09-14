@@ -38,6 +38,8 @@ public class GenericEnemyAi : MonoBehaviour
     public GameObject coin;
     public ParticleSystem junk;
 
+    public AudioSource audioS;
+
 
     private void Awake()
     {
@@ -77,7 +79,7 @@ public class GenericEnemyAi : MonoBehaviour
         if (other.tag == "Player" && PC.dash)
         {
             TakeDamage(PC.RamDMG);
-
+            audioS.Play();
         }
     }
 
