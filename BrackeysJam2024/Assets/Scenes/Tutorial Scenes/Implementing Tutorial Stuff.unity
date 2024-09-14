@@ -7096,7 +7096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123090449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.52, y: 0.497, z: 19.98}
+  m_LocalPosition: {x: -17.41, y: 0.497, z: -14.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7920,7 +7920,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 142135806}
   player: {fileID: 1259475689}
-  turretActivation: {fileID: 1829878149}
+  turretActivation1: {fileID: 1829878149}
+  turretActivation2: {fileID: 1911404051}
   WorldSpaceTarget: {x: 0, y: 0, z: 0}
   Cam: {fileID: 569793687}
   OffsetY: 15
@@ -13581,6 +13582,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1911404051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+  m_PrefabInstance: {fileID: 1549448876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1915084143
 GameObject:
   m_ObjectHideFlags: 0

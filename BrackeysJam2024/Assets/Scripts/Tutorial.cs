@@ -8,7 +8,8 @@ public class Tutorial : MonoBehaviour
 {
     public GameObject tutorialText;
     public GameObject player;
-    public GameObject turretActivation;
+    public GameObject turretActivation1;
+    public GameObject turretActivation2;
 
     public Vector3 WorldSpaceTarget;
 
@@ -103,15 +104,18 @@ public class Tutorial : MonoBehaviour
             StartCoroutine(EndTutorial());
         }
 
-        if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && !upgradeTutorialDone)
+        if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorialDone)
         {
             StartCoroutine(ChangeTutorialToTurret());
         }
 
-        if (turretActivation.GetComponent<ActivationArea>().playerInArea && Input.GetKeyDown(KeyCode.E) && !turretTutorialDone)
+        if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
         {
-            StartCoroutine(ChangeTutorialToCombat());
-            enemySpawner.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E) && upgradeTutorialDone && !turretTutorialDone)
+            {
+                StartCoroutine(ChangeTutorialToCombat());
+                enemySpawner.SetActive(true);
+            }
         }
 
         
