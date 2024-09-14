@@ -9,6 +9,8 @@ public class AllyBullet : MonoBehaviour
 
     public float timeToDestroy;
 
+    public AudioSource audioS;
+
     IEnumerator Destroy()
     {
         Debug.Log("Destroy coroutine has started");
@@ -54,7 +56,11 @@ public class AllyBullet : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.GetComponent<GenericEnemyAi>().TakeDamage(1);
-            Destroy(this.gameObject);
+            audioS.Play();
+            this.GetComponent<BoxCollider>().enabled = false;
+            this.GetComponent<MeshRenderer>().enabled = false;
+            timeToDestroy = 1f;
+            StartCoroutine(Destroy());
         }
         else if(other.gameObject.layer == 31)
         {
