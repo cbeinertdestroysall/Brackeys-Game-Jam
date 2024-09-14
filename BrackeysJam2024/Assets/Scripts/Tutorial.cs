@@ -144,11 +144,15 @@ public class Tutorial : MonoBehaviour
 
             if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
             {
-                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
+                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone && player.GetComponent<CoinCollection>().coins >= 10)
                 {
                     StartCoroutine(ChangeTutorialToCombat());
                     enemySpawner.SetActive(true);
                 }
+                /*else if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone && player.GetComponent<CoinCollection>().coins < 10)
+                {
+                    coinSpawner.GetComponent<SpawnCoins>().Spawn();
+                }*/
             }
 
             if (combatTutorialDone)

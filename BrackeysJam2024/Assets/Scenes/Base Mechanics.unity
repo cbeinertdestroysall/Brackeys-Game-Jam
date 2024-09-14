@@ -463,7 +463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &113387605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7510,12 +7510,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 902962944}
   player: {fileID: 1259475689}
-  turretActivation1: {fileID: 0}
-  turretActivation2: {fileID: 0}
+  turretActivation1: {fileID: 1963837470}
+  turretActivation2: {fileID: 1549448878}
   WorldSpaceTarget: {x: 0, y: 0, z: 0}
   Cam: {fileID: 569793687}
   OffsetY: 15
   OffsetX: -91
+  startTurtorial: 0
   movementTutorialDone: 0
   dashTutorialDone: 0
   upgradeTutorial1Done: 0
@@ -9337,6 +9338,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6850795925402214520, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
   m_PrefabInstance: {fileID: 1549448876}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1549448878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+  m_PrefabInstance: {fileID: 1549448876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1567334190
 GameObject:
   m_ObjectHideFlags: 0
@@ -9651,6 +9657,7 @@ MonoBehaviour:
   startCam: {fileID: 461445065}
   LightHouseDeath: {fileID: 919132149171652544}
   PC: {fileID: 1259475694}
+  TS: {fileID: 933848076}
 --- !u!1 &1662062187
 GameObject:
   m_ObjectHideFlags: 0
@@ -15102,6 +15109,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+--- !u!1 &1963837470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850795925602764271, guid: d85e9916ed36b9c4fb797812d00b3962, type: 3}
+  m_PrefabInstance: {fileID: 1963837469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1996783044
 GameObject:
   m_ObjectHideFlags: 0
