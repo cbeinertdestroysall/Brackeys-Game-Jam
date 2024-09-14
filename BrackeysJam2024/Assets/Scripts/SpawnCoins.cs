@@ -28,7 +28,7 @@ public class SpawnCoins : MonoBehaviour
 
     }
 
-    void Spawn()
+    public void Spawn()
     {
         for (int i = 0; i < coinMax; i++)
         {

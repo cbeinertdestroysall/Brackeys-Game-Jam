@@ -24,11 +24,16 @@ public class Tutorial : MonoBehaviour
 
     public bool movementTutorialDone = false;
     public bool dashTutorialDone = false;
-    public bool upgradeTutorialDone = false;
+    public bool upgradeTutorial1Done = false;
+    public bool upgradeTutorial2Done = false;
     public bool turretTutorialDone = false;
     public bool combatTutorialDone = false;
 
     public GameObject enemySpawner;
+    public GameObject coinSpawner;
+
+    public GameObject healthUpgrade;
+    public GameObject speedUpgrade;
 
     IEnumerator ChangeTutorialToDash()
     {
@@ -39,7 +44,7 @@ public class Tutorial : MonoBehaviour
         
     }
 
-    IEnumerator ChangeTutorialToUpgrade()
+    IEnumerator ChangeTutorialToUpgrade1()
     {
         
             yield return new WaitForSeconds(3f);
@@ -48,12 +53,19 @@ public class Tutorial : MonoBehaviour
         
     }
 
+    IEnumerator ChangeTutorialToUpgrade2()
+    {
+        yield return new WaitForSeconds(1f);
+        tutorialText.GetComponent<TMP_Text>().text = "Go to blue upgrade box and press 'e' to increase dash stamina";
+        upgradeTutorial1Done = true;
+    }
+
     IEnumerator ChangeTutorialToTurret()
     {
         
             yield return new WaitForSeconds(1f);
             tutorialText.GetComponent<TMP_Text>().text = "Go to turret and press 'e' to activate it";
-            upgradeTutorialDone = true;
+            upgradeTutorial2Done = true;
         
         
     }
@@ -82,7 +94,6 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        
 
         WorldSpaceTarget = player.transform.position;
 
@@ -97,21 +108,34 @@ public class Tutorial : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone)
         {
-            StartCoroutine(ChangeTutorialToUpgrade());
+            StartCoroutine(ChangeTutorialToUpgrade1());
         }
         else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
         {
             StartCoroutine(EndTutorial());
         }
 
-        if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorialDone)
+        if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+        {
+            StartCoroutine(ChangeTutorialToUpgrade2());
+        }
+        else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+        {
+            coinSpawner.GetComponent<SpawnCoins>().Spawn();
+        }
+
+        if (player.GetComponent<Upgrading>().CanUpgradeSpeed == true && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && !upgradeTutorial2Done)
         {
             StartCoroutine(ChangeTutorialToTurret());
+        }
+        else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+        {
+            coinSpawner.GetComponent<SpawnCoins>().Spawn();
         }
 
         if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
         {
-            if (Input.GetKeyDown(KeyCode.E) && upgradeTutorialDone && !turretTutorialDone)
+            if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
             {
                 StartCoroutine(ChangeTutorialToCombat());
                 enemySpawner.SetActive(true);

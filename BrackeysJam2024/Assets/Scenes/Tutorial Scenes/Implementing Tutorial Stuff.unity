@@ -7928,10 +7928,14 @@ MonoBehaviour:
   OffsetX: -91
   movementTutorialDone: 0
   dashTutorialDone: 0
-  upgradeTutorialDone: 0
+  upgradeTutorial1Done: 0
+  upgradeTutorial2Done: 0
   turretTutorialDone: 0
   combatTutorialDone: 0
   enemySpawner: {fileID: 113387604}
+  coinSpawner: {fileID: 1236717448}
+  healthUpgrade: {fileID: 18922091}
+  speedUpgrade: {fileID: 1123090449}
 --- !u!4 &1464726924
 Transform:
   m_ObjectHideFlags: 0
