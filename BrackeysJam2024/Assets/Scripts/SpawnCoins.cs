@@ -32,7 +32,7 @@ public class SpawnCoins : MonoBehaviour
     {
         for (int i = 0; i < coinMax; i++)
         {
-            Instantiate(coin, new Vector3(spawnOrigin.transform.position.x + Random.Range(transformMin, transformMax), spawnOrigin.transform.position.y, spawnOrigin.transform.position.z + Random.Range(transformMin, transformMax)), Quaternion.identity);
+            Instantiate(coin, new Vector3(spawnOrigin.transform.position.x + Random.Range(transformMin, transformMax), spawnOrigin.transform.position.y, spawnOrigin.transform.position.z + Random.Range(transformMin, transformMax)), Quaternion.identity, GameObject.FindGameObjectWithTag("CoinParent").transform);
         }
         //coinCount += 1;
     }

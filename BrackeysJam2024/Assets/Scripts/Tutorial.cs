@@ -11,6 +11,9 @@ public class Tutorial : MonoBehaviour
     public GameObject turretActivation1;
     public GameObject turretActivation2;
 
+    public GameObject turret1;
+    public GameObject turret2;
+
     public Vector3 WorldSpaceTarget;
 
     Transform WorldSpaceTransform;
@@ -37,6 +40,10 @@ public class Tutorial : MonoBehaviour
     public GameObject healthUpgrade;
     public GameObject speedUpgrade;
 
+    GameObject coinParent;
+
+   
+
     IEnumerator ChangeTutorialToDash()
     {
 
@@ -51,6 +58,7 @@ public class Tutorial : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to yellow upgrade box and press 'e' to increase health";
+        healthUpgrade.SetActive(true);
         dashTutorialDone = true;
 
     }
@@ -59,6 +67,8 @@ public class Tutorial : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to blue upgrade box and press 'e' to increase dash stamina";
+        healthUpgrade.SetActive(false);
+        speedUpgrade.SetActive(true);
         upgradeTutorial1Done = true;
     }
 
@@ -67,6 +77,9 @@ public class Tutorial : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to turret and press 'e' to activate it";
+        speedUpgrade.SetActive(false);
+        turret1.SetActive(true);
+        turret2.SetActive(true);
         upgradeTutorial2Done = true;
 
 
@@ -75,6 +88,8 @@ public class Tutorial : MonoBehaviour
     IEnumerator EndTutorial()
     {
         yield return new WaitForSeconds(5f);
+        speedUpgrade.SetActive(true);
+        healthUpgrade.SetActive(true);
         tutorialText.SetActive(false);
     }
 
@@ -97,6 +112,7 @@ public class Tutorial : MonoBehaviour
     {
         //tutorialText.GetComponent<TextMeshPro>().text = "Press WASD to move and press the key in the boat's facing direction to start moving";
         tutorialText.GetComponent<TMP_Text>().text = "Press WASD to move";
+        coinParent = GameObject.FindGameObjectWithTag("CoinParent");
     }
 
     // Update is called once per frame
@@ -128,7 +144,7 @@ public class Tutorial : MonoBehaviour
             {
                 StartCoroutine(ChangeTutorialToUpgrade2());
             }
-            else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
+            else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done && coinParent.transform.childCount < healthUpgrade.GetComponent<PaymentManager>().cost && coinParent.transform.childCount < speedUpgrade.GetComponent<PaymentManager>().cost)
             {
                 coinSpawner.GetComponent<SpawnCoins>().Spawn();
             }
@@ -137,7 +153,7 @@ public class Tutorial : MonoBehaviour
             {
                 StartCoroutine(ChangeTutorialToTurret());
             }
-            else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && (!upgradeTutorial2Done || !turretTutorialDone))
+            else if (player.GetComponent<Upgrading>().CanUpgradeSpeed == false && (Input.GetKeyDown(KeyCode.E)) && upgradeTutorial1Done && (!upgradeTutorial2Done || !turretTutorialDone) && coinParent.transform.childCount < healthUpgrade.GetComponent<PaymentManager>().cost && coinParent.transform.childCount < speedUpgrade.GetComponent<PaymentManager>().cost)
             {
                 coinSpawner.GetComponent<SpawnCoins>().Spawn();
             }
