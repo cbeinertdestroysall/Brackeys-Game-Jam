@@ -20,6 +20,9 @@ public class TurretScript : MonoBehaviour
 
     GameObject PC, BaseParent, DisabledTurrets,HealthBar;
     HealthBarWS HPB;
+
+    public AudioSource audioS;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class TurretScript : MonoBehaviour
             PC.GetComponent<CoinCollection>().coins -= 10;
             this.gameObject.transform.SetParent(BaseParent.transform);
             alive = true;
+            audioS.Play();
         }
         if(target != null && target.GetComponent<GenericEnemyAi>().health <= 0)
         {
