@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -20,13 +21,14 @@ public class EnemySpawner : MonoBehaviour
     public LayerMask overlapLayerMask;              //Checks for overlapping enemies
     public int maxEnemySpawnPosAttempts;            //Limits how many potential locations for spawning enemies
     public float calmBeforeStorm = 10f;             //The time between rounds
-    public Text intervalTimerText;                  //UI component to show the timer between rounds
+    public TextMeshProUGUI intervalTimerText;                  //UI component to show the timer between rounds
 
     private int enemiesSpawned = 0;                 //Enemies spawned in real time
     private Transform currentSpawnerOfEnemy;        //Tracks what spawner will spawn the next enemy
     private bool spawningInProgress;                //Tracks whether or not the coroutine for spawning is running
     private int currentRound = 1;                   //Tracks the current round the player is in 
     private bool roundInProgress = false;           //Tracks whether or not a round is in progress
+    public List <GameObject> activeEnemies = new List<GameObject>();           //Active enemies in the scene. This will be used to change the rounds
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return StartCoroutine(StartRound());
+            yield return StartCoroutine(AllEnemiesDead());
             yield return StartCoroutine(NextRoundInterval());
         }
     }
@@ -117,8 +120,15 @@ public class EnemySpawner : MonoBehaviour
 
                 if (validPosition)
                 {
-                    Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemyParent);               //Spawn the enemy in the valid position 
-                    spawnedPositions.Add(spawnPosition);                                        //Add the valid spawn position to the list
+                    GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemyParent);               //Spawn the enemy in the valid position 
+                    GenericEnemyAi enemyAI = spawnedEnemy.GetComponent<GenericEnemyAi>();
+
+                    if (enemyAI != null )
+                    {
+                        enemyAI.enemySpawner = this;
+                    }
+                    activeEnemies.Add(spawnedEnemy);                                        //Add the valid spawn position to the list
+                    spawnedPositions.Add(spawnPosition);
                     enemiesSpawned++;
                 }
 
@@ -133,6 +143,13 @@ public class EnemySpawner : MonoBehaviour
         currentRound++;
     }
 
+    IEnumerator AllEnemiesDead()
+    {
+        while (activeEnemies.Count > 0)         //Waits until all of the enemies have been removed from the list
+        {
+            yield return null; 
+        }
+    }
     IEnumerator NextRoundInterval()
     {
         float timer = calmBeforeStorm;
@@ -140,7 +157,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (intervalTimerText != null)
             {
-                intervalTimerText.text = $"Next Round in: {Mathf.Ceil(timer)}s";
+                intervalTimerText.text = $"Next Storm in: {Mathf.Ceil(timer)}s";
             }
 
             yield return new WaitForSeconds(1f);
@@ -159,6 +176,28 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector2 randomPoint = Random.insideUnitSphere * rad;                                //Random point within a circle
         return new Vector3(center.x + randomPoint.x, center.y, center.z + randomPoint.y);   //Converting back to a 3D Vector                                                                        
+    }
+
+    public void HandleEnemyDeath(GameObject enemy)                 //Logic for the enemy deaths
+    {
+        if (activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Remove(enemy);            //Removes enemy from the list when the player kills it
+            Debug.Log("Enemy removed. Remaining enemies in scene is: " + activeEnemies.Count);
+        }
+    }
+
+    void SpawnEnemyAtPosition(Vector3 pos)
+    {
+        GameObject spawnedEnemy = Instantiate(enemyPrefab, pos, Quaternion.identity, enemyParent);
+        GenericEnemyAi enemyAI = spawnedEnemy.GetComponent<GenericEnemyAi>();
+
+        if (enemyAI != null)
+        {
+            enemyAI.enemySpawner = this;
+        }
+
+        activeEnemies.Add(spawnedEnemy);
     }
     void Update()
     {
