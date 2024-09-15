@@ -44,7 +44,7 @@ public class Tutorial : MonoBehaviour
 
     GameObject coinParent;
 
-   
+
 
     IEnumerator ChangeTutorialToDash()
     {
@@ -115,6 +115,23 @@ public class Tutorial : MonoBehaviour
         //tutorialText.GetComponent<TextMeshPro>().text = "Press WASD to move and press the key in the boat's facing direction to start moving";
         tutorialText.GetComponent<TMP_Text>().text = "Press WASD to move";
         coinParent = GameObject.FindGameObjectWithTag("CoinParent");
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            movementTutorialDone = true;
+            dashTutorialDone = true;
+            upgradeTutorial1Done = true;
+            upgradeTutorial2Done = true;
+            turretTutorialDone = true;
+            combatTutorialDone = true;
+            coinSpawner.GetComponent<SpawnCoins>().Spawn();
+            coinSpawner.GetComponent<SpawnCoins>().Spawn();
+            lhUI.SetActive(true);
+            enemySpawner.SetActive(true);
+        }
     }
 
     // Update is called once per frame
