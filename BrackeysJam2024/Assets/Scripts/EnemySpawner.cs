@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     public int minEnemiesToSpawn = 2;               //Min enemies to spawn at one time
     public int maxEnemiesToSpawn = 5;               //Max enemies to spawn at one time
     public float minDistanceBetweenEnemies = 3f;    //Minimum space between enemies when spawning
-    public float spawnRadius = 1f;                  //Barrier around each spawner
+    public float spawnRadius = 5f;                  //Barrier around each spawner
     public LayerMask overlapLayerMask;              //Checks for overlapping enemies
     public int maxEnemySpawnPosAttempts;            //Limits how many potential locations for spawning enemies
     public float calmBeforeStorm = 10f;             //The time between rounds
@@ -41,7 +41,9 @@ public class EnemySpawner : MonoBehaviour
     private int piratesToSpawn;                     //Amount of pirates each round 
     private int angularsToSpawn;                    //Amount of angulars each round
 
-
+    public AudioSource audioSource;
+    public AudioClip restartStartSound;
+   
     void Start()
     {
         StartCoroutine(RoundManager());
@@ -60,6 +62,11 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator StartRound()
     {
         Debug.Log($"Starting round {currentRound}");
+
+        if(audioSource != null && restartStartSound != null)
+        {
+            audioSource.PlayOneShot(restartStartSound);
+        }
 
         guppiesToSpawn = Mathf.Max(initialGuppies - (currentRound - 1), 5);                     //Reduces the amount of guppies over later rounds, but keeps a minimum
         //piratesToSpawn = initialPirates + (currentRound - 1);                                   //Increases pirates each round

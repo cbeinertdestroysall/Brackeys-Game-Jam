@@ -205,7 +205,7 @@ public class GenericEnemyAi : MonoBehaviour
                 enemySpawner.HandleEnemyDeath(gameObject);
             }
             */
-
+            
             gameObject.GetComponent<SpawnBullet>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
@@ -215,18 +215,27 @@ public class GenericEnemyAi : MonoBehaviour
             {
                 Destroy(eHealthBar);
             }
-
+            Invoke(nameof(CoinSpawning), 0.5f);
             Invoke(nameof(DestroyEnemy), 1.5f);
         }
     }
     private void DestroyEnemy()
     {
         enemySpawner.HandleEnemyDeath(gameObject);
+        /*for (int i = 0; i < coinsToDrop; i++)
+        {
+            Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2), transform.position.y, transform.position.z + Random.Range(-2, 2)), Quaternion.identity);
+        
+        */
+        Destroy(gameObject);
+    }
+
+    public void CoinSpawning()
+    {
         for (int i = 0; i < coinsToDrop; i++)
         {
             Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2), transform.position.y, transform.position.z + Random.Range(-2, 2)), Quaternion.identity);
         }
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
