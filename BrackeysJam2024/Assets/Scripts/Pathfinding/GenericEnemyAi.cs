@@ -40,6 +40,7 @@ public class GenericEnemyAi : MonoBehaviour
 
     public AudioSource audioS;
 
+    public EnemySpawner enemySpawner;               //Reference to the enemy spawner to communicate when enemies die 
 
     private void Awake()
     {
@@ -198,10 +199,15 @@ public class GenericEnemyAi : MonoBehaviour
 
         if (health <= 0)
         {
+            if (enemySpawner != null)
+            {
+                enemySpawner.HandleEnemyDeath(gameObject);
+            }
+
             gameObject.GetComponent<SpawnBullet>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
-            transform.GetChild(0).GameObject().SetActive(false);
+            transform.GetChild(0).gameObject.SetActive(false);
             junk.Play();
             if (showsHP)
             {
