@@ -463,7 +463,7 @@ MonoBehaviour:
   activeEnemies: []
   maxHP: 100
   curHP: 0
-  turretRange: 1500
+  turretRange: 750
   HPoffsetY: -1
   alive: 0
   audioS: {fileID: 1549448879}
