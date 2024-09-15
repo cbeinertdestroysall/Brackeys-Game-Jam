@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   area: {fileID: 3732316428083873918}
   fireInterval: 0
-  maxFireDelay: 25
+  maxFireDelay: 100
   target: {fileID: 0}
   EnemiesParent: {fileID: 0}
   bullet: {fileID: 2065509536677753551, guid: bcc3cd7489c015f489061e8b3d099333, type: 3}
