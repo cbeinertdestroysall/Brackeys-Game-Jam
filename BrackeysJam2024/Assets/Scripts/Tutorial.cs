@@ -79,6 +79,7 @@ public class Tutorial : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to a turret and press 'e' to activate it";
+        healthUpgrade.SetActive(false);
         speedUpgrade.SetActive(false);
         turret1.SetActive(true);
         turret2.SetActive(true);

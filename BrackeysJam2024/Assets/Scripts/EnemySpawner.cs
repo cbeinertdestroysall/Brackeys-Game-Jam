@@ -232,7 +232,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (intervalTimerText != null)
             {
-                intervalTimerText.text = $"Next Storm in: {Mathf.Ceil(timer)}s";
+                intervalTimerText.text = $"Next Storm in:{Mathf.Ceil(timer)} seconds";
             }
 
             yield return new WaitForSeconds(1f);
