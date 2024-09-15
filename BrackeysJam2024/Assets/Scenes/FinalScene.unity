@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 670410288}
-  m_IndirectSpecularColor: {r: 0.28505552, g: 0.36988607, b: 0.48409772, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850561, g: 0.369888, b: 0.48411056, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -28012,6 +28012,7 @@ MonoBehaviour:
   OffsetY: -100
   OffsetX: 0
   startTurtorial: 0
+  tutOver: 0
   movementTutorialDone: 0
   dashTutorialDone: 0
   upgradeTutorial1Done: 0
@@ -28022,6 +28023,7 @@ MonoBehaviour:
   coinSpawner: {fileID: 1236717448}
   healthUpgrade: {fileID: 18922091}
   speedUpgrade: {fileID: 1123090449}
+  lhUI: {fileID: 434977150}
 --- !u!4 &933848077
 Transform:
   m_ObjectHideFlags: 0
@@ -62397,6 +62399,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1097963668987654336, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 85ebc89286e9c8144b200128eb2ce723, type: 2}
     - target: {fileID: 3016204763744172248, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
@@ -62405,6 +62411,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3165454168937339075, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 85ebc89286e9c8144b200128eb2ce723, type: 2}
+    - target: {fileID: 3165454168937339076, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 85ebc89286e9c8144b200128eb2ce723, type: 2}
     - target: {fileID: 3165454168937339077, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -62449,6 +62463,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3165454168937339078, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 85ebc89286e9c8144b200128eb2ce723, type: 2}
+    - target: {fileID: 3165454168937339079, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 85ebc89286e9c8144b200128eb2ce723, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb4a88beeafd6d4799170a77fe25087, type: 3}
 --- !u!4 &3316992658349092162

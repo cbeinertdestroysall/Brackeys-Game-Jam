@@ -26,7 +26,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] int OffsetX;
 
     public bool startTurtorial = false;
-
+    public bool tutOver = false;
     public bool movementTutorialDone = false;
     public bool dashTutorialDone = false;
     public bool upgradeTutorial1Done = false;
@@ -93,6 +93,7 @@ public class Tutorial : MonoBehaviour
         speedUpgrade.SetActive(true);
         healthUpgrade.SetActive(true);
         tutorialText.SetActive(false);
+        tutOver = true;
     }
 
     IEnumerator ChangeTutorialToCombat()
@@ -119,7 +120,7 @@ public class Tutorial : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && !tutOver)
         {
             movementTutorialDone = true;
             dashTutorialDone = true;
@@ -127,10 +128,16 @@ public class Tutorial : MonoBehaviour
             upgradeTutorial2Done = true;
             turretTutorialDone = true;
             combatTutorialDone = true;
+            speedUpgrade.SetActive(true);
+            healthUpgrade.SetActive(true);
+            tutorialText.SetActive(false);
+            turret1.SetActive(true);
+            turret2.SetActive(true);
             coinSpawner.GetComponent<SpawnCoins>().Spawn();
             coinSpawner.GetComponent<SpawnCoins>().Spawn();
             lhUI.SetActive(true);
             enemySpawner.SetActive(true);
+            tutOver=true;
         }
     }
 
