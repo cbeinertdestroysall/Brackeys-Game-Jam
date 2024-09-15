@@ -30,7 +30,7 @@ public class GameStart : MonoBehaviour
     {
         TitleText.SetActive(false);
         coinUI.SetActive(true);
-        lighthouseUI.SetActive(true);
+        //lighthouseUI.SetActive(true);
         healthUI.SetActive(true);
         StartButton.SetActive(false);
 

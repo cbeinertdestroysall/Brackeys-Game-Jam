@@ -40,6 +40,8 @@ public class Tutorial : MonoBehaviour
     public GameObject healthUpgrade;
     public GameObject speedUpgrade;
 
+    public GameObject lhUI;
+
     GameObject coinParent;
 
    
@@ -138,6 +140,7 @@ public class Tutorial : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
             {
                 StartCoroutine(ChangeTutorialToGoal());
+                lhUI.SetActive(true);
             }
 
             if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
