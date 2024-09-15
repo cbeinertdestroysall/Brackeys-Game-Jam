@@ -44,6 +44,7 @@ public class GenericEnemyAi : MonoBehaviour
 
     private void Awake()
     {
+        enemySpawner = FindObjectOfType<EnemySpawner>();
         BaseParent = GameObject.Find("BaseParent");
         player = GameObject.Find("Player");
         playerPos = player.transform;
@@ -199,15 +200,16 @@ public class GenericEnemyAi : MonoBehaviour
 
         if (health <= 0)
         {
-            if (enemySpawner != null)
+            /*if (enemySpawner != null)
             {
                 enemySpawner.HandleEnemyDeath(gameObject);
             }
+            */
 
             gameObject.GetComponent<SpawnBullet>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(0).GameObject().SetActive(false);
             junk.Play();
             if (showsHP)
             {
@@ -219,6 +221,7 @@ public class GenericEnemyAi : MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        enemySpawner.HandleEnemyDeath(gameObject);
         for (int i = 0; i < coinsToDrop; i++)
         {
             Instantiate(coin, new Vector3(transform.position.x + Random.Range(-2, 2), transform.position.y, transform.position.z + Random.Range(-2, 2)), Quaternion.identity);

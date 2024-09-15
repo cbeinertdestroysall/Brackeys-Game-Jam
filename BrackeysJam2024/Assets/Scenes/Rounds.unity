@@ -481,7 +481,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdd3733004b4f14c8ea5f225eba3c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8001982049322572013, guid: 0f43d8a0e9e96f7419ec3f44c4f41cf1, type: 3}
+  enemyPrefabGuppy: {fileID: 8001982049322572013, guid: 0f43d8a0e9e96f7419ec3f44c4f41cf1, type: 3}
+  enemyPrefabPirate: {fileID: 8001982049322572013, guid: 40bd0b6edde4c4b48be055730346f609, type: 3}
+  enemyPrefabAngular: {fileID: 8001982049322572013, guid: 33556745dc9271d4b95c8fd65ae18c32, type: 3}
   spawnArrowPrefab: {fileID: 2581562771842381492, guid: e2ede445f9146e74dac8981d8ce072f2, type: 3}
   enemyParent: {fileID: 1392031628}
   spawnerLocations:
@@ -503,6 +505,10 @@ MonoBehaviour:
   calmBeforeStorm: 10
   intervalTimerText: {fileID: 1196821413}
   activeEnemies: []
+  enemyIncrementPerRound: 5
+  initialGuppies: 15
+  initialPirates: 0
+  initialAngulars: 0
 --- !u!4 &113387606
 Transform:
   m_ObjectHideFlags: 0

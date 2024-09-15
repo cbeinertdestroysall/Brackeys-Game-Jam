@@ -6,7 +6,9 @@ using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefabGuppy;
+    public GameObject enemyPrefabPirate;
+    public GameObject enemyPrefabAngular;
     public GameObject spawnArrowPrefab;
 
     [SerializeField] Transform enemyParent;
@@ -29,6 +31,16 @@ public class EnemySpawner : MonoBehaviour
     private int currentRound = 1;                   //Tracks the current round the player is in 
     private bool roundInProgress = false;           //Tracks whether or not a round is in progress
     public List <GameObject> activeEnemies = new List<GameObject>();           //Active enemies in the scene. This will be used to change the rounds
+    
+    public int enemyIncrementPerRound = 5;          //Round based increment for enemies to spawn per round
+    public int initialGuppies = 15;                 //Starting amount of guppies
+    public int initialPirates = 0;                  //Starting amount of pirates 
+    public int initialAngulars = 0;                 //Starting amount of angulars
+
+    private int guppiesToSpawn;                     //Amount of guppies each round
+    private int piratesToSpawn;                     //Amount of pirates each round 
+    private int angularsToSpawn;                    //Amount of angulars each round
+
 
     void Start()
     {
@@ -40,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return StartCoroutine(StartRound());
-            yield return StartCoroutine(AllEnemiesDead());
+            //yield return StartCoroutine(AllEnemiesDead());
             yield return StartCoroutine(NextRoundInterval());
         }
     }
@@ -48,6 +60,30 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator StartRound()
     {
         Debug.Log($"Starting round {currentRound}");
+
+        guppiesToSpawn = Mathf.Max(initialGuppies - (currentRound - 1), 5);                     //Reduces the amount of guppies over later rounds, but keeps a minimum
+        //piratesToSpawn = initialPirates + (currentRound - 1);                                   //Increases pirates each round
+        //angularsToSpawn = initialAngulars + (currentRound - 1) * 2;                             //Increases angulars faster than pirates
+        
+        if (currentRound >= 2)
+        {
+            piratesToSpawn = initialPirates + (currentRound - 2);                                   //Increases pirates each round past the first round
+        }
+        else
+        {
+            piratesToSpawn = 0;
+        }
+
+        if (currentRound >= 3)
+        {
+            angularsToSpawn = initialAngulars + (currentRound - 3) * 2;                             //Increases angulars faster than pirates after the second round
+        }
+        else
+        {
+            angularsToSpawn = 0;
+        }
+
+        totalEnemiesToSpawn = guppiesToSpawn + piratesToSpawn + angularsToSpawn;
 
         enemiesSpawned = 0;
         spawningInProgress = true;
@@ -82,6 +118,8 @@ public class EnemySpawner : MonoBehaviour
 
             for (int i = 0; i < enemiesToSpawnNow; i++)
             {
+                if (enemiesSpawned >= totalEnemiesToSpawn) { break; }
+
                 Vector3 spawnPosition;
                 bool validPosition = false;
                 int attemptCount = 0;
@@ -120,16 +158,21 @@ public class EnemySpawner : MonoBehaviour
 
                 if (validPosition)
                 {
-                    GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemyParent);               //Spawn the enemy in the valid position 
-                    GenericEnemyAi enemyAI = spawnedEnemy.GetComponent<GenericEnemyAi>();
+                    GameObject enemyToSpawn = ChooseEnemyType();
+                    GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, enemyParent);               //Spawn the enemy in the valid position 
+                    activeEnemies.Add(spawnedEnemy);
+                    spawnedPositions.Add(spawnPosition);
+                    enemiesSpawned++;
+                    //GenericEnemyAi enemyAI = spawnedEnemy.GetComponent<GenericEnemyAi>();
 
-                    if (enemyAI != null )
+                    /*if (enemyAI != null )
                     {
                         enemyAI.enemySpawner = this;
                     }
-                    activeEnemies.Add(spawnedEnemy);                                        //Add the valid spawn position to the list
-                    spawnedPositions.Add(spawnPosition);
-                    enemiesSpawned++;
+                    */
+                    //activeEnemies.Add(spawnedEnemy);                                        //Add the valid spawn position to the list
+
+
                 }
 
                 if (enemiesSpawned >= totalEnemiesToSpawn) break;                           //End of the round, stop spawning enemies
@@ -139,17 +182,42 @@ public class EnemySpawner : MonoBehaviour
         }
 
         spawningInProgress = false;
+
+        while (activeEnemies.Count > 0)
+        {
+            yield return null; 
+        }
+
         roundInProgress = false;
         currentRound++;
     }
 
-    IEnumerator AllEnemiesDead()
+    GameObject ChooseEnemyType()
+    {
+        if (angularsToSpawn > 0)
+        {
+            angularsToSpawn--;
+            return enemyPrefabAngular;
+        }
+        else if (piratesToSpawn > 0)
+        {
+            piratesToSpawn--;
+            return enemyPrefabPirate;
+        }
+        else
+        {
+            guppiesToSpawn--;
+            return enemyPrefabGuppy;
+        }
+    }
+    /*IEnumerator AllEnemiesDead()
     {
         while (activeEnemies.Count > 0)         //Waits until all of the enemies have been removed from the list
         {
             yield return null; 
         }
     }
+    */
     IEnumerator NextRoundInterval()
     {
         float timer = calmBeforeStorm;
@@ -189,7 +257,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemyAtPosition(Vector3 pos)
     {
-        GameObject spawnedEnemy = Instantiate(enemyPrefab, pos, Quaternion.identity, enemyParent);
+        GameObject spawnedEnemy = Instantiate(enemyPrefabGuppy, pos, Quaternion.identity, enemyParent);
         GenericEnemyAi enemyAI = spawnedEnemy.GetComponent<GenericEnemyAi>();
 
         if (enemyAI != null)
