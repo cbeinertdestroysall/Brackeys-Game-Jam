@@ -57,7 +57,7 @@ public class Tutorial : MonoBehaviour
     {
 
         yield return new WaitForSeconds(3f);
-        tutorialText.GetComponent<TMP_Text>().text = "Go to yellow upgrade box and press 'e' to increase health";
+        tutorialText.GetComponent<TMP_Text>().text = "Go to yellow upgrade hut and press 'e' to increase health";
         healthUpgrade.SetActive(true);
         dashTutorialDone = true;
 
@@ -66,7 +66,7 @@ public class Tutorial : MonoBehaviour
     IEnumerator ChangeTutorialToUpgrade2()
     {
         yield return new WaitForSeconds(1f);
-        tutorialText.GetComponent<TMP_Text>().text = "Go to blue upgrade box and press 'e' to increase dash stamina";
+        tutorialText.GetComponent<TMP_Text>().text = "Go to blue upgrade hut and press 'e' to increase dash stamina";
         healthUpgrade.SetActive(false);
         speedUpgrade.SetActive(true);
         upgradeTutorial1Done = true;
@@ -76,7 +76,7 @@ public class Tutorial : MonoBehaviour
     {
 
         yield return new WaitForSeconds(1f);
-        tutorialText.GetComponent<TMP_Text>().text = "Go to turret and press 'e' to activate it";
+        tutorialText.GetComponent<TMP_Text>().text = "Go to a turret and press 'e' to activate it";
         speedUpgrade.SetActive(false);
         turret1.SetActive(true);
         turret2.SetActive(true);

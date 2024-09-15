@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
-    [SerializeField] GameObject coinUI,lighthouseUI,healthUI,StartButton,ResetButton;
+    [SerializeField] GameObject coinUI,lighthouseUI,healthUI,StartButton,ResetButton,TitleText;
 
     [SerializeField] CinemachineVirtualCamera defaultCam,startCam;
 
@@ -28,6 +28,7 @@ public class GameStart : MonoBehaviour
 
     public void StartGame()
     {
+        TitleText.SetActive(false);
         coinUI.SetActive(true);
         lighthouseUI.SetActive(true);
         healthUI.SetActive(true);

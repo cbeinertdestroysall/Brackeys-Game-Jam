@@ -664,7 +664,7 @@ MonoBehaviour:
   TextInput:
   - Lines:
     - (E) Build Turret
-    - $10
+    - ' Cost:10'
   InteractUIPrefab: {fileID: 3599748363795901877, guid: 7b20b068124ae7f43a58c9a4bc212de4, type: 3}
   WorldTarget: {fileID: 6926098502294048896}
   Prompt: {fileID: 0}
