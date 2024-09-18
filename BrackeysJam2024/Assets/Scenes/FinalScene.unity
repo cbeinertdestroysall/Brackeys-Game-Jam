@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 670410288}
-  m_IndirectSpecularColor: {r: 0.28505552, g: 0.36988607, b: 0.48409772, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850561, g: 0.369888, b: 0.48411056, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3074,9 +3074,9 @@ MonoBehaviour:
   spawnRadius: 6
   overlapLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 2147483720
   maxEnemySpawnPosAttempts: 20
-  calmBeforeStorm: 25
+  calmBeforeStorm: 20
   intervalTimerText: {fileID: 195679950}
   activeEnemies: []
   enemyIncrementPerRound: 10
@@ -6745,7 +6745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 434977150}
   curHp: 0
-  MaxHp: 1
+  MaxHp: 500
   collisionDamage: 25
   GM: {fileID: 1649807092}
   gameOver: 0
@@ -22816,7 +22816,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700591891}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
