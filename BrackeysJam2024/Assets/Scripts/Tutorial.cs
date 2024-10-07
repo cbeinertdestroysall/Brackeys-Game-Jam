@@ -70,6 +70,8 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(1f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to blue upgrade hut and press 'e' to increase dash stamina";
         healthUpgrade.SetActive(false);
+        healthUpgrade.GetComponent<PaymentManager>().canShow = false;
+        player.GetComponent<Upgrading>().CanUpgradeHP = false;
         speedUpgrade.SetActive(true);
         upgradeTutorial1Done = true;
     }
@@ -79,8 +81,10 @@ public class Tutorial : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         tutorialText.GetComponent<TMP_Text>().text = "Go to a turret and press 'e' to activate it";
-        healthUpgrade.SetActive(false);
+        //healthUpgrade.SetActive(false);
         speedUpgrade.SetActive(false);
+        speedUpgrade.GetComponent<PaymentManager>().canShow = false;
+        player.GetComponent<Upgrading>().CanUpgradeSpeed = false;
         turret1.SetActive(true);
         turret2.SetActive(true);
         upgradeTutorial2Done = true;
@@ -188,7 +192,7 @@ public class Tutorial : MonoBehaviour
 
             if (turretActivation1.GetComponent<ActivationArea>().playerInArea || turretActivation2.GetComponent<ActivationArea>().playerInArea)
             {
-                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone)
+                if (Input.GetKeyDown(KeyCode.E) && upgradeTutorial2Done && !turretTutorialDone && (turret1.GetComponent<TurretScript>().alive || turret2.GetComponent<TurretScript>().alive))
                 {
                     StartCoroutine(ChangeTutorialToCombat());
                     enemySpawner.SetActive(true);
