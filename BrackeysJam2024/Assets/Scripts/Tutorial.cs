@@ -160,21 +160,25 @@ public class Tutorial : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W) && !movementTutorialDone)
             {
                 StartCoroutine(ChangeTutorialToDash());
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && movementTutorialDone && !dashTutorialDone && !upgradeTutorial1Done)
             {
                 StartCoroutine(ChangeTutorialToUpgrade1());
+                return;
             }
             else if (Input.GetKeyDown(KeyCode.Space) && dashTutorialDone && turretTutorialDone && !combatTutorialDone)
             {
                 StartCoroutine(ChangeTutorialToGoal());
                 lhUI.SetActive(true);
+                return;
             }
 
             if (player.GetComponent<Upgrading>().CanUpgradeHP == true && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done)
             {
                 StartCoroutine(ChangeTutorialToUpgrade2());
+                return;
             }
             else if (player.GetComponent<Upgrading>().CanUpgradeHP == false && (Input.GetKeyDown(KeyCode.E)) && dashTutorialDone && !upgradeTutorial1Done && coinParent.transform.childCount < healthUpgrade.GetComponent<PaymentManager>().cost && coinParent.transform.childCount < speedUpgrade.GetComponent<PaymentManager>().cost)
             {
