@@ -8,20 +8,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController Controller;
     [SerializeField] float turnSmoothTime = 0.1f;
     [SerializeField] float speed = 6f, dashSpeed;
-    public bool dash, dashCD, teleporting;
-    private float inputHorizontal, inputVertical, turnSmoothVelocity, prevAngle;
+    public bool dash, dashCD, teleporting, Grounded;
+    private float inputHorizontal, inputVertical, turnSmoothVelocity, groundDist = 0.4f, gravity = -13.0f, velocityY;
     [SerializeField] public DashMeter DM;
     [SerializeField] public int dashCDTimer, maxDash, maxDashCD, RamDMG;
     public float dashMeter;
     [SerializeField] public CinemachineVirtualCamera DefaultVcam, DashVcam;
     Vector3 Velocity;
-    [SerializeField] Transform TPtarget;
+    [SerializeField] Transform TPtarget,playerGround;
     public ParticleSystem motor;
     public ParticleSystem motorDash;
     public GameObject healthBar;
     public bool resetFunctionCalled = false;
     public GameObject boat;
     public BaseScript LH;
+    public LayerMask groundMask;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             ShipDash();
             DoGroundMovement();
+            Gravity();
         }
     }
 
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
 
+        Grounded = Physics.CheckSphere(playerGround.position, groundDist, groundMask);
 
         if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
         {
@@ -96,20 +99,6 @@ public class PlayerController : MonoBehaviour
 
             motorDash.Stop();
         }
-
-
-
-        /*Grounded = Physics.CheckSphere(playerGround.position, groundDist, groundMask);
-
-        if (Input.GetButtonDown("Jump") && Grounded && !HasKey)
-        {
-            inputJump = true;
-        }
-        if (Input.GetButton("Fire2") && HasKey)
-        {
-            ToggleKey(false);
-            curerntKey.ResetKey();
-        }*/
     }
     void TeleportPlayer()
     {
@@ -162,6 +151,21 @@ public class PlayerController : MonoBehaviour
             DM.Invoke("HideMeter", 2f);
         }
     }
+    void Gravity()
+    {
+        if (Controller.isGrounded)
+        {
+            velocityY = 0.0f;
+        }
+        velocityY += gravity * Time.fixedDeltaTime;
+
+        if (Grounded && velocityY < 0)
+        {
+            velocityY = -2f;
+        }
+
+        Controller.Move(Vector3.up * velocityY * Time.fixedDeltaTime);
+    }
 
 
     void DoGroundMovement()
@@ -174,14 +178,7 @@ public class PlayerController : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg /*+ Camera.eulerAngles.y*/;
-            //Debug.Log("Input:");
-            //Debug.Log(prevAngle);
-            //Debug.Log(targetAngle);
-            //Debug.Log(targetAngle +45);
-            //Debug.Log(targetAngle -45);
-
-            //if (targetAngle == prevAngle || targetAngle == prevAngle + 45 || targetAngle == prevAngle - 45 || targetAngle == -prevAngle + 45 || targetAngle == -prevAngle - 45)
-            //{
+           
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -195,15 +192,8 @@ public class PlayerController : MonoBehaviour
                 {
                     Velocity = moveDir.normalized * speed * Time.fixedDeltaTime;
                 }
-                //prevAngle = targetAngle;
-            //}
-
-            //MovementAnims.SetBool("Sprint",true);
-        }
-        else
-        {
-            //MovementAnims.SetBool("Sprint",false);
-            //MovementAnims.SetBool("Idle",true);
+               
+           
         }
         Velocity.y = 0;
         Controller.Move(Velocity);

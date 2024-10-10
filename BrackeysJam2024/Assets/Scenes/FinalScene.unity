@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 670410288}
-  m_IndirectSpecularColor: {r: 0.28505552, g: 0.36988607, b: 0.48409772, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850561, g: 0.369888, b: 0.48411056, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5079,6 +5079,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4661435515762813124, guid: e289bf5debb17f6459818c207d781953, type: 3}
   m_PrefabInstance: {fileID: 206435462}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &213107780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 213107781}
+  m_Layer: 3
+  m_Name: GroundPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &213107781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213107780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.729, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259475698}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &213342811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35277,7 +35308,6 @@ GameObject:
   - component: {fileID: 1259475692}
   - component: {fileID: 1259475691}
   - component: {fileID: 1259475690}
-  - component: {fileID: 1259475699}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -35331,8 +35361,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0894959, y: 2.1024942, z: 3.0018382}
-  m_Center: {x: 0, y: 0.05124724, z: 0.15004283}
+  m_Size: {x: 1.0894959, y: 1.825314, z: 3.0018382}
+  m_Center: {x: 0.000000005642152, y: 0.18983737, z: 0.15004279}
 --- !u!114 &1259475693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35371,6 +35401,7 @@ MonoBehaviour:
   dash: 0
   dashCD: 0
   teleporting: 0
+  Grounded: 0
   DM: {fileID: 1996783046}
   dashCDTimer: 0
   maxDash: 100
@@ -35380,12 +35411,16 @@ MonoBehaviour:
   DefaultVcam: {fileID: 821778820}
   DashVcam: {fileID: 27973559}
   TPtarget: {fileID: 1211644690}
+  playerGround: {fileID: 213107781}
   motor: {fileID: 680752786}
   motorDash: {fileID: 1794540841}
   healthBar: {fileID: 33381765}
   resetFunctionCalled: 0
   boat: {fileID: 19173946}
   LH: {fileID: 275966072}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
 --- !u!143 &1259475695
 CharacterController:
   m_ObjectHideFlags: 0
@@ -35397,7 +35432,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.1
+  m_Height: 1.35
   m_Radius: 0.83
   m_SlopeLimit: 0
   m_StepOffset: 0
@@ -35469,25 +35504,10 @@ Transform:
   - {fileID: 565914121}
   - {fileID: 680752784}
   - {fileID: 1794540839}
+  - {fileID: 213107781}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -115.999, z: 0}
---- !u!54 &1259475699
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259475689}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 4
-  m_CollisionDetection: 0
 --- !u!1001 &1266784721
 PrefabInstance:
   m_ObjectHideFlags: 0

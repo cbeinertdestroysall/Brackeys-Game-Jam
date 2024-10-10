@@ -4986,7 +4986,7 @@ MonoBehaviour:
   walkPointRange: 2
   timeBetweenAttacks: 10
   showsHP: 0
-  sightRange: 40
+  sightRange: 25
   attackRange: 0.6
   playerInSightRange: 0
   playerInAttackRange: 0
