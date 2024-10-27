@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(inputHorizontal, 0f, inputVertical).normalized;
 
 
-        Velocity *= 0.99f;
+        Velocity *= 0.975f;
 
         if (direction.magnitude >= 0.1f)
         {

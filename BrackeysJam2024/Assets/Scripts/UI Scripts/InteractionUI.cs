@@ -98,8 +98,8 @@ public class InteractionUI : MonoBehaviour
         SFX.Play();
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Image>().enabled = false;
-                transform.GetChild(i).transform.GetChild(0).GetComponent<TMP_Text>().enabled = false;
+            //transform.GetChild(i).GetComponent<Image>().enabled = false;
+            transform.GetChild(i).transform.GetChild(0).GetComponent<TMP_Text>().enabled = false;
         }
         Deactivate();
     }
@@ -113,7 +113,7 @@ public class InteractionUI : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                transform.GetChild(i).GetComponent<Image>().enabled = true;
+                //transform.GetChild(i).GetComponent<Image>().enabled = true;
                 transform.GetChild(i).transform.GetChild(0).GetComponent<TMP_Text>().enabled = true;
             }
         }

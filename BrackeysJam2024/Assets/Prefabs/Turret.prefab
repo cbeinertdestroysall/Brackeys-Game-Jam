@@ -397,7 +397,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5921117748822103821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.531, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -663,8 +663,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextInput:
   - Lines:
-    - (E) Build Turret
-    - ' Cost:10'
+    - Build Turret
+    - (E) Cost:10
   InteractUIPrefab: {fileID: 3599748363795901877, guid: 7b20b068124ae7f43a58c9a4bc212de4, type: 3}
   WorldTarget: {fileID: 6926098502294048896}
   Prompt: {fileID: 0}

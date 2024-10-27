@@ -18,12 +18,7 @@ public class ShowCost : MonoBehaviour
     [SerializeField] Camera Cam;
     [SerializeField] int OffsetY;
     [SerializeField] int OffsetX;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] bool Speed,HP;
 
     private void Update()
     {
@@ -48,7 +43,14 @@ public class ShowCost : MonoBehaviour
         WorldSpaceTarget = WorldSpaceTransform.position;
         IndicatorPos = Cam.WorldToScreenPoint(WorldSpaceTarget);
         transform.position = IndicatorPos + new Vector3(OffsetX, OffsetY, 0);
-        costText.text = "Cost: " + upgradeBox.GetComponent<PaymentManager>().cost;
-    }
 
+        if(HP)
+        {
+            costText.text = "Health Upgrade<br>(E) Cost: " + upgradeBox.GetComponent<PaymentManager>().cost;
+        }
+        else if(Speed)
+        {
+            costText.text = "Dash Upgrade<br>(E) Cost: " + upgradeBox.GetComponent<PaymentManager>().cost;
+        }
+    }
 }
